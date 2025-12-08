@@ -64,8 +64,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        display: ['Cormorant Garamond', 'Georgia', 'serif'],
-        body: ['Cormorant Garamond', 'Georgia', 'serif'],
+        display: ['Montserrat', 'system-ui', 'sans-serif'],
+        body: ['Montserrat', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         "accordion-down": {

@@ -40,11 +40,11 @@ const ScrollySection = ({ text, index, totalSections }: ScrollySectionProps) => 
         className="max-w-4xl mx-auto text-center"
       >
         {isTitle ? (
-          <h1 className="scrolly-title text-shadow-strong text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-foreground">
+          <h1 className="scrolly-title text-shadow-strong text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground font-bold">
             {text}
           </h1>
         ) : (
-          <p className="scrolly-text text-shadow-soft text-xl sm:text-2xl md:text-3xl lg:text-4xl text-foreground">
+          <p className="scrolly-text text-shadow-soft text-lg sm:text-xl md:text-2xl lg:text-3xl text-foreground font-medium">
             {text}
           </p>
         )}
