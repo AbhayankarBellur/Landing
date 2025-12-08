@@ -33,18 +33,18 @@ const ScrollySection = ({ text, index, totalSections }: ScrollySectionProps) => 
   return (
     <div
       ref={ref}
-      className="h-screen flex items-center justify-center px-6 md:px-12"
+      className="h-screen flex items-center justify-center px-4 sm:px-6 md:px-12"
     >
       <motion.div
         style={{ opacity, y }}
         className="max-w-4xl mx-auto text-center"
       >
         {isTitle ? (
-          <h1 className="scrolly-title text-shadow-strong text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground font-bold">
+          <h1 className="scrolly-title text-shadow-strong text-xl sm:text-2xl md:text-3xl lg:text-5xl text-foreground font-bold leading-tight">
             {text}
           </h1>
         ) : (
-          <p className="scrolly-text text-shadow-soft text-lg sm:text-xl md:text-2xl lg:text-3xl text-foreground font-medium">
+          <p className="scrolly-text text-shadow-soft text-base sm:text-lg md:text-xl lg:text-2xl text-foreground font-medium leading-relaxed">
             {text}
           </p>
         )}
