@@ -1,5 +1,4 @@
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 interface VideoSection {
   videoSrc: string;
@@ -8,51 +7,9 @@ interface VideoSection {
 interface MultiVideoBackgroundProps {
   videos: VideoSection[];
   activeIndex: number;
-  scrollProgress: number;
-  sectionRanges: { start: number; end: number }[];
 }
 
-const MultiVideoBackground = ({ 
-  videos, 
-  activeIndex, 
-  scrollProgress,
-  sectionRanges 
-}: MultiVideoBackgroundProps) => {
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  
-  // Use spring for smooth scrubbing
-  const smoothProgress = useSpring(useMotionValue(scrollProgress), {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  useEffect(() => {
-    smoothProgress.set(scrollProgress);
-  }, [scrollProgress, smoothProgress]);
-
-  useEffect(() => {
-    const unsubscribe = smoothProgress.on("change", (latest) => {
-      videoRefs.current.forEach((video, index) => {
-        if (video && video.duration) {
-          const range = sectionRanges[index];
-          if (range) {
-            // Calculate progress within this video's section
-            const sectionProgress = Math.max(0, Math.min(1, 
-              (latest - range.start) / (range.end - range.start)
-            ));
-            
-            // Set video time based on section progress
-            const targetTime = sectionProgress * video.duration;
-            video.currentTime = targetTime;
-          }
-        }
-      });
-    });
-
-    return () => unsubscribe();
-  }, [smoothProgress, sectionRanges]);
-
+const MultiVideoBackground = ({ videos, activeIndex }: MultiVideoBackgroundProps) => {
   return (
     <div className="fixed inset-0 w-full h-full -z-10 overflow-hidden">
       {videos.map((video, index) => (
@@ -64,10 +21,10 @@ const MultiVideoBackground = ({
           transition={{ duration: 1.2, ease: "easeInOut" }}
         >
           <video
-            ref={(el) => { videoRefs.current[index] = el; }}
+            autoPlay
+            loop
             muted
             playsInline
-            preload="auto"
             className="absolute w-full h-full object-cover"
           >
             <source src={video.videoSrc} type="video/mp4" />

@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import MultiVideoBackground from "@/components/MultiVideoBackground";
 import ScrollySection from "@/components/ScrollySection";
 import ScrollIndicator from "@/components/ScrollIndicator";
@@ -34,40 +34,21 @@ const videoSections: VideoSection[] = [
 const Index = () => {
   const { scrollYProgress } = useScroll();
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
-  // Calculate section ranges for each video
-  const { totalSections, sectionRanges } = useMemo(() => {
-    let currentSection = 0;
-    const ranges: { start: number; end: number }[] = [];
-    
-    // +1 for initial spacer per section, +1 for end spacer
-    const total = videoSections.reduce(
-      (acc, section) => acc + section.content.length + 1,
-      0
-    ) + 1;
+  // Calculate breakpoints for video transitions
+  const totalContentSections = videoSections.reduce(
+    (acc, section) => acc + section.content.length + 1,
+    0
+  ) + 1;
 
-    videoSections.forEach((section) => {
-      const sectionStart = currentSection / total;
-      const sectionSections = section.content.length + 1; // +1 for spacer
-      currentSection += sectionSections;
-      const sectionEnd = currentSection / total;
-      ranges.push({ start: sectionStart, end: sectionEnd });
-    });
-
-    return { totalSections: total, sectionRanges: ranges };
-  }, []);
-
-  // Track scroll and update active video + progress
+  // Track scroll and update active video
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
-    setScrollProgress(progress);
+    const firstSectionEnd = (videoSections[0].content.length + 1.5) / totalContentSections;
     
-    // Find which section we're in
-    for (let i = 0; i < sectionRanges.length; i++) {
-      if (progress < sectionRanges[i].end) {
-        setActiveVideoIndex(i);
-        break;
-      }
+    if (progress < firstSectionEnd) {
+      setActiveVideoIndex(0);
+    } else {
+      setActiveVideoIndex(1);
     }
   });
 
@@ -80,12 +61,10 @@ const Index = () => {
 
   return (
     <main className="relative">
-      {/* Multi-Video Background with crossfade and scroll-controlled scrubbing */}
+      {/* Multi-Video Background with crossfade */}
       <MultiVideoBackground
         videos={videoSections.map((s) => ({ videoSrc: s.videoSrc }))}
         activeIndex={activeVideoIndex}
-        scrollProgress={scrollProgress}
-        sectionRanges={sectionRanges}
       />
 
       {/* Scroll Indicator - only visible at top */}
