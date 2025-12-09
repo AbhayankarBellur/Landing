@@ -30,8 +30,8 @@ const ScrollySection = ({ text, index, totalSections }: ScrollySectionProps) => 
       className="h-screen flex items-center justify-center px-4 sm:px-6 md:px-12"
     >
       <motion.div
-        style={{ opacity }}
-        className="max-w-4xl mx-auto text-center"
+        style={{ opacity, transform: "none" }}
+        className="max-w-4xl mx-auto text-center fixed-center"
       >
         {isTitle ? (
           <h1 className="scrolly-title text-shadow-strong text-xl sm:text-2xl md:text-3xl lg:text-5xl text-foreground font-bold leading-tight">
