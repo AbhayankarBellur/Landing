@@ -87,9 +87,6 @@ const Index = () => {
       {/* Video Sections */}
       {videoSections.map((section, sectionIndex) => (
         <div key={sectionIndex}>
-          {/* Initial spacer - video plays without text */}
-          <div className="h-screen" />
-
           {/* Scrolly Sections for this video */}
           {section.content.map((text, contentIndex) => (
             <ScrollySection
