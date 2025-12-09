@@ -15,11 +15,11 @@ const ScrollySection = ({ text, index, totalSections }: ScrollySectionProps) => 
     offset: ["start end", "end start"],
   });
 
-  // Fade in as section enters, stay visible, fade out as it leaves
-  // Added buffer zones at start (0-0.15) and end (0.85-1) to prevent overlap
+  // Faster transitions with zero overlap
+  // Large buffer at start (wait for previous to fade out) and quick fade out
   const opacity = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.35, 0.5, 0.65, 0.85, 1],
+    [0, 0.3, 0.4, 0.5, 0.55, 0.6, 1],
     [0, 0, 1, 1, 1, 0, 0]
   );
 
