@@ -15,17 +15,11 @@ const ScrollySection = ({ text, index, totalSections }: ScrollySectionProps) => 
     offset: ["start end", "end start"],
   });
 
-  // Transform values for the animation
+  // Transform values for the animation - fade only, centered
   const opacity = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.5, 0.8, 1],
+    [0, 0.25, 0.5, 0.75, 1],
     [0, 1, 1, 1, 0]
-  );
-  
-  const y = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.5, 0.8, 1],
-    [80, 0, 0, 0, -80]
   );
 
   const isTitle = index === 0;
@@ -36,7 +30,7 @@ const ScrollySection = ({ text, index, totalSections }: ScrollySectionProps) => 
       className="h-screen flex items-center justify-center px-4 sm:px-6 md:px-12"
     >
       <motion.div
-        style={{ opacity, y }}
+        style={{ opacity }}
         className="max-w-4xl mx-auto text-center"
       >
         {isTitle ? (
