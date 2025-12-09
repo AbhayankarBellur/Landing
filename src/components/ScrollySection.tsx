@@ -41,7 +41,7 @@ const ScrollySection = ({ text, index, totalSections }: ScrollySectionProps) => 
               {text}
             </h1>
           ) : (
-            <p className="scrolly-text text-shadow-soft text-base sm:text-lg md:text-xl lg:text-2xl text-foreground font-medium leading-relaxed">
+            <p className="scrolly-text text-shadow-soft text-xl sm:text-2xl md:text-3xl lg:text-5xl text-foreground font-medium leading-relaxed">
               {text}
             </p>
           )}
