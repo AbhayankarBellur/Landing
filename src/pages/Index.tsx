@@ -29,6 +29,14 @@ const videoSections: VideoSection[] = [
       "Find what's right for your pet in one convenient place.",
     ],
   },
+  {
+    videoSrc: "/videos/petsVET_1.mp4",
+    content: [
+      "Veterinary Care & Consultations",
+      "Warmpawz connects pet parents with trusted veterinarians for consultations, wellness checks, and specialised care.",
+      "Browse verified experts, review their services, and book the support your pet needs with clarity and confidence.",
+    ],
+  },
 ];
 
 const Index = () => {
@@ -43,13 +51,17 @@ const Index = () => {
 
   // Track scroll and update active video
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
-    const firstSectionEnd = (videoSections[0].content.length + 1.5) / totalContentSections;
-    
-    if (progress < firstSectionEnd) {
-      setActiveVideoIndex(0);
-    } else {
-      setActiveVideoIndex(1);
+    // Calculate cumulative section ends for each video
+    let cumulativeSections = 0;
+    for (let i = 0; i < videoSections.length; i++) {
+      const sectionEnd = (cumulativeSections + videoSections[i].content.length + 1.5) / totalContentSections;
+      if (progress < sectionEnd) {
+        setActiveVideoIndex(i);
+        return;
+      }
+      cumulativeSections += videoSections[i].content.length + 1;
     }
+    setActiveVideoIndex(videoSections.length - 1);
   });
 
   // Hide scroll indicator after user starts scrolling
