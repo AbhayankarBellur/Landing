@@ -45,6 +45,14 @@ const videoSections: VideoSection[] = [
       "Browse verified experts, understand their approach, and book the right guidance to keep your pet active, confident, and emotionally balanced.",
     ],
   },
+  {
+    videoSrc: "/videos/pet-boarding.mp4",
+    content: [
+      "Warmpawz Boarding & Pet Café Services",
+      "Warmpawz helps you discover trusted boarding spaces and welcoming pet cafés designed for comfort, safety, and socialisation.",
+      "Explore verified providers, review their amenities and approach, and book a space where your pet can relax, play, and feel at home.",
+    ],
+  },
 ];
 
 const Index = () => {
