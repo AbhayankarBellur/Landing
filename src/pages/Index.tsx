@@ -11,7 +11,7 @@ interface VideoSection {
 
 const videoSections: VideoSection[] = [
   {
-    videoSrc: "/videos/adoption-video.mp4",
+    videoSrc: "/videos/adoption-v2.mp4",
     content: [
       "Adoption Centre Compatibility & Support",
       "At Warmpawz, our approach extends beyond services — we help pet parents find the right match through our compassionate Adoption Centre.",
@@ -35,6 +35,14 @@ const videoSections: VideoSection[] = [
       "Veterinary Care & Consultations",
       "Warmpawz connects pet parents with trusted veterinarians for consultations, wellness checks, and specialised care.",
       "Browse verified experts, review their services, and book the support your pet needs with clarity and confidence.",
+    ],
+  },
+  {
+    videoSrc: "/videos/pet-training.mp4",
+    content: [
+      "Warmpawz Walking, Training & Behaviour Services",
+      "Warmpawz connects you with trusted professionals offering structured walks, positive training, and specialised behaviour support.",
+      "Browse verified experts, understand their approach, and book the right guidance to keep your pet active, confident, and emotionally balanced.",
     ],
   },
 ];
