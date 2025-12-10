@@ -15,12 +15,12 @@ const ScrollySection = ({ text, index, totalSections }: ScrollySectionProps) => 
     offset: ["start end", "end start"],
   });
 
-  // Faster transitions with zero overlap
-  // Large buffer at start (wait for previous to fade out) and quick fade out
+  // Smoother transitions with clear separation - no overlap
+  // Extended fade zones for buttery smooth scrolling
   const opacity = useTransform(
     scrollYProgress,
-    [0, 0.3, 0.4, 0.5, 0.55, 0.6, 1],
-    [0, 0, 1, 1, 1, 0, 0]
+    [0, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 1],
+    [0, 0, 0.5, 1, 1, 0.5, 0, 0]
   );
 
   const isTitle = index === 0;
