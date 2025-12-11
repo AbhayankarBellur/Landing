@@ -66,6 +66,7 @@ export default {
       fontFamily: {
         display: ['Montserrat', 'system-ui', 'sans-serif'],
         body: ['Montserrat', 'system-ui', 'sans-serif'],
+        baloo: ['Baloo 2', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         "accordion-down": {

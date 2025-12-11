@@ -49,7 +49,7 @@ const steps = [
 
 const VendorOnboarding = () => {
   return (
-    <main className="min-h-screen bg-background py-16 px-4">
+    <main className="min-h-screen bg-background py-16 px-4 font-baloo">
       <BackButton />
       
       {/* Header */}
