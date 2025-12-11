@@ -49,15 +49,15 @@ const steps = [
 
 const VendorOnboarding = () => {
   return (
-    <main className="min-h-screen bg-background py-16 px-4 font-baloo">
-      <BackButton />
+    <main className="min-h-screen bg-white py-16 px-4 font-baloo">
+      <BackButton className="bg-gray-100 border-gray-300 hover:bg-gray-200 text-black" />
       
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto mb-20">
-        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
           Vendor Onboarding
         </h1>
-        <p className="text-muted-foreground text-lg">
+        <p className="text-gray-600 text-lg">
           Join the Warmpawz family and start your journey as a trusted pet service
           provider. Follow these simple steps to get verified and begin connecting
           with pet parents.

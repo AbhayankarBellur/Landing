@@ -62,11 +62,11 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
         }`}
         style={{ transitionDelay: "0.3s" }}
       >
-        <span className="text-primary font-bold text-lg">Step {stepNumber}</span>
-        <h3 className="text-2xl md:text-3xl font-bold text-foreground mt-2 mb-4">
+        <span className="text-black font-bold text-lg">Step {stepNumber}</span>
+        <h3 className="text-2xl md:text-3xl font-bold text-black mt-2 mb-4">
           {title}
         </h3>
-        <p className="text-muted-foreground leading-relaxed">{description}</p>
+        <p className="text-gray-600 leading-relaxed">{description}</p>
       </div>
     </div>
   );
