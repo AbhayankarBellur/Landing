@@ -54,6 +54,14 @@ const videoSections: VideoSection[] = [
       "Explore verified providers, review their amenities and approach, and book a space where your pet can relax, play, and feel at home.",
     ],
   },
+  {
+    videoSrc: "/videos/pet-sunset.mp4",
+    content: [
+      "Warmpawz Sunset Services",
+      "Warmpawz connects families with gentle, compassionate professionals who support pets during their peaceful sunset stage.",
+      "Find caring guidance and comfort-focused services to help you navigate this tender time with warmth and understanding.",
+    ],
+  },
 ];
 
 const UserWalkthrough = () => {

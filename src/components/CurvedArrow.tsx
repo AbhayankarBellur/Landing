@@ -23,7 +23,7 @@ const CurvedArrow: FC<CurvedArrowProps> = ({ direction, className = "" }) => {
         strokeWidth="2.5"
         fill="none"
         strokeLinecap="round"
-        className="text-foreground"
+        className="text-black"
       />
       {/* Arrow head at bottom */}
       <path
@@ -33,7 +33,7 @@ const CurvedArrow: FC<CurvedArrowProps> = ({ direction, className = "" }) => {
         fill="none"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="text-foreground"
+        className="text-black"
       />
     </svg>
   );
