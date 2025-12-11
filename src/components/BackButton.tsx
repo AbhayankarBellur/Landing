@@ -11,7 +11,7 @@ const BackButton = () => {
       animate={{ opacity: 1 }}
       transition={{ delay: 0.5 }}
       onClick={() => navigate("/")}
-      className="fixed top-6 right-6 z-50 p-3 bg-background/80 backdrop-blur-sm rounded-full shadow-lg hover:bg-background transition-colors border border-border"
+      className="fixed top-6 left-6 z-50 p-3 bg-background/80 backdrop-blur-sm rounded-full shadow-lg hover:bg-background transition-colors border border-border"
       aria-label="Go back to home"
     >
       <ArrowLeft className="w-5 h-5 text-foreground" />
