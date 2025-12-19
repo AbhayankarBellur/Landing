@@ -108,18 +108,18 @@ const StageSection: FC<StageSectionProps> = ({
           </h2>
           <p
             ref={descRef}
-            className="text-base sm:text-lg md:text-xl text-muted-foreground font-body leading-relaxed"
+            className="text-lg sm:text-xl md:text-2xl text-foreground/80 font-body leading-relaxed"
           >
             {description}
           </p>
         </div>
       </div>
 
-      {/* Curved Arrow - only show between sections */}
+      {/* Curved Arrow - centered on mobile, alternating on tablet/desktop */}
       {showArrow && (
         <div
-          className={`absolute bottom-0 ${
-            isLeft ? "right-8 sm:right-12 md:right-24 lg:right-1/3" : "left-8 sm:left-12 md:left-24 lg:left-1/3"
+          className={`absolute bottom-0 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 ${
+            isLeft ? "md:right-24 lg:right-1/3" : "md:left-24 lg:left-1/3"
           } transform translate-y-1/2 z-10`}
         >
           <CurvedArrow direction={isLeft ? "right" : "left"} />
