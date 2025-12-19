@@ -1,45 +1,57 @@
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import petsVetImage from "@/assets/pets-vet.png";
+import petTrainingImage from "@/assets/pet-training.png";
 
 const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <main className="min-h-screen bg-background flex items-center justify-center font-body">
-      <div className="flex flex-col items-center gap-8">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl md:text-6xl font-bold text-foreground text-center font-display"
-        >
-          Warmpawz
-        </motion.h1>
-        
-        <div className="flex flex-col sm:flex-row gap-4">
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+    <main className="min-h-screen bg-white flex flex-col items-center justify-center font-body px-6 py-12">
+      {/* Title */}
+      <h1 className="text-4xl md:text-6xl font-bold text-black text-center font-display mb-16 md:mb-24">
+        Warmpawz
+      </h1>
+
+      {/* Two-column layout for buttons with decorative images */}
+      <div className="flex flex-col md:flex-row gap-16 md:gap-24 lg:gap-32 items-center justify-center w-full max-w-4xl">
+        {/* Pet Parent Button Container */}
+        <div className="relative flex flex-col items-center">
+          {/* Decorative Image - behind button */}
+          <div className="relative z-0 w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 flex items-end justify-center">
+            <img
+              src={petTrainingImage}
+              alt=""
+              className="w-full h-full object-contain object-bottom"
+              aria-hidden="true"
+            />
+          </div>
+          {/* Button - overlapping image */}
+          <button
             onClick={() => navigate("/user-walkthrough")}
-            className="px-8 py-4 bg-foreground text-background rounded-lg text-lg font-semibold shadow-lg hover:opacity-90 transition-colors"
+            className="relative z-10 -mt-4 px-10 py-4 md:px-12 md:py-5 bg-[#F5A855] text-black rounded-full text-lg md:text-xl font-bold font-display shadow-lg whitespace-nowrap"
           >
-            End User Walk Through
-          </motion.button>
-          
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            Pet Parent
+          </button>
+        </div>
+
+        {/* Service Provider Button Container */}
+        <div className="relative flex flex-col items-center">
+          {/* Decorative Image - behind button */}
+          <div className="relative z-0 w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 flex items-end justify-center">
+            <img
+              src={petsVetImage}
+              alt=""
+              className="w-full h-full object-contain object-bottom"
+              aria-hidden="true"
+            />
+          </div>
+          {/* Button - overlapping image */}
+          <button
             onClick={() => navigate("/vendor-onboarding")}
-            className="px-8 py-4 bg-secondary text-foreground border border-border rounded-lg text-lg font-semibold shadow-lg hover:bg-muted transition-colors"
+            className="relative z-10 -mt-4 px-10 py-4 md:px-12 md:py-5 bg-[#F5A855] text-black rounded-full text-lg md:text-xl font-bold font-display shadow-lg whitespace-nowrap"
           >
-            Vendor Onboarding
-          </motion.button>
+            Service Provider
+          </button>
         </div>
       </div>
     </main>
