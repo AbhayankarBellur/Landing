@@ -57,6 +57,14 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        stage: {
+          1: "hsl(var(--stage-1))",
+          2: "hsl(var(--stage-2))",
+          3: "hsl(var(--stage-3))",
+          4: "hsl(var(--stage-4))",
+          5: "hsl(var(--stage-5))",
+          6: "hsl(var(--stage-6))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -64,8 +72,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        display: ['Montserrat', 'system-ui', 'sans-serif'],
-        body: ['Montserrat', 'system-ui', 'sans-serif'],
+        display: ['Baloo 2', 'system-ui', 'sans-serif'],
+        body: ['Baloo 2', 'system-ui', 'sans-serif'],
         baloo: ['Baloo 2', 'system-ui', 'sans-serif'],
       },
       keyframes: {
@@ -85,12 +93,17 @@ export default {
           "0%": { opacity: "1", transform: "translateY(0)" },
           "100%": { opacity: "0", transform: "translateY(-60px)" },
         },
+        "phone-float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-up": "fade-up 0.8s ease-out forwards",
         "fade-out-up": "fade-out-up 0.8s ease-out forwards",
+        "phone-float": "phone-float 4s ease-in-out infinite",
       },
     },
   },
