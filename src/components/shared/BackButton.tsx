@@ -9,13 +9,19 @@ interface BackButtonProps {
 const BackButton = ({ className }: BackButtonProps) => {
   const navigate = useNavigate();
 
+  const handleBackToHome = () => {
+    // Mark that user has navigated within the session
+    sessionStorage.setItem('hasNavigated', 'true');
+    navigate("/");
+  };
+
   return (
     <motion.button
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.5 }}
-      onClick={() => navigate("/")}
-      className={`fixed top-6 left-6 z-50 p-3 backdrop-blur-sm rounded-full shadow-lg transition-colors border ${className || "bg-background/80 border-border hover:bg-background text-foreground"}`}
+      onClick={handleBackToHome}
+      className={`fixed top-24 left-6 z-50 p-3 backdrop-blur-sm rounded-full shadow-lg transition-colors border ${className || "bg-background/80 border-border hover:bg-background text-foreground"}`}
       aria-label="Go back to home"
     >
       <ArrowLeft className="w-5 h-5" />

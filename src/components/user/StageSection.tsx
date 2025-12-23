@@ -2,7 +2,7 @@ import { FC, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PhoneMockup from "./PhoneMockup";
-import CurvedArrow from "../CurvedArrow";
+import CurvedArrow from "@/components/shared/CurvedArrow";
 
 gsap.registerPlugin(ScrollTrigger);
 

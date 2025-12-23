@@ -1,6 +1,5 @@
-import OnboardingStep from "@/components/OnboardingStep";
-import CurvedArrow from "@/components/CurvedArrow";
-import BackButton from "@/components/BackButton";
+import OnboardingStep from "@/components/shared/OnboardingStep";
+import CurvedArrow from "@/components/shared/CurvedArrow";
 
 const steps = [
   {
@@ -54,46 +53,29 @@ const steps = [
   },
 ];
 
-const VendorOnboarding = () => {
+const OnboardingSteps = () => {
   return (
-    <main className="min-h-screen bg-white py-16 px-4 font-baloo">
-      <BackButton className="bg-gray-100 border-gray-300 hover:bg-gray-200 text-black" />
-      
-      {/* Header */}
-      <div className="text-center max-w-2xl mx-auto mb-20">
-        <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
-          Vendor Onboarding
-        </h1>
-        <p className="text-gray-600 text-lg">
-          Join the Warmpawz family and start your journey as a trusted pet service
-          provider. Follow these simple steps to get verified and begin connecting
-          with pet parents.
-        </p>
-      </div>
-
-      {/* Steps */}
-      <div className="max-w-5xl mx-auto space-y-8">
-        {steps.map((step, index) => (
-          <div key={step.stepNumber}>
-            <OnboardingStep
-              stepNumber={step.stepNumber}
-              title={step.title}
-              description={step.description}
-              videoSrc={step.videoSrc}
-              isReversed={index % 2 !== 0}
-            />
-            
-            {/* Arrow between steps */}
-            {index < steps.length - 1 && (
-              <div className="flex justify-center my-8">
-                <CurvedArrow direction={index % 2 === 0 ? "right" : "left"} />
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </main>
+    <div className="max-w-5xl mx-auto space-y-8">
+      {steps.map((step, index) => (
+        <div key={step.stepNumber}>
+          <OnboardingStep
+            stepNumber={step.stepNumber}
+            title={step.title}
+            description={step.description}
+            videoSrc={step.videoSrc}
+            isReversed={index % 2 !== 0}
+          />
+          
+          {/* Arrow between steps */}
+          {index < steps.length - 1 && (
+            <div className="flex justify-center my-8">
+              <CurvedArrow direction={index % 2 === 0 ? "right" : "left"} />
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
   );
 };
 
-export default VendorOnboarding;
+export default OnboardingSteps;
