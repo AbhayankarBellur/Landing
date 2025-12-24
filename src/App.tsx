@@ -15,25 +15,30 @@ import NotFoundPage from "./app/not-found/page";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/user-walkthrough" element={<UserWalkthroughPage />} />
-          <Route path="/vendor-onboarding" element={<VendorOnboardingPage />} />
-          <Route path="/about" element={<AboutUsPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/news-events" element={<NewsEventsPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+	<QueryClientProvider client={queryClient}>
+		<TooltipProvider>
+			<div className="brand-gradient">
+				<Toaster />
+				<Sonner />
+				<BrowserRouter>
+					<Routes>
+						<Route path="/" element={<HomePage />} />
+						<Route path="/user-walkthrough" element={<UserWalkthroughPage />} />
+						<Route
+							path="/vendor-onboarding"
+							element={<VendorOnboardingPage />}
+						/>
+						<Route path="/about" element={<AboutUsPage />} />
+						<Route path="/services" element={<ServicesPage />} />
+						<Route path="/blog" element={<BlogPage />} />
+						<Route path="/news-events" element={<NewsEventsPage />} />
+						{/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+						<Route path="*" element={<NotFoundPage />} />
+					</Routes>
+				</BrowserRouter>
+			</div>
+		</TooltipProvider>
+	</QueryClientProvider>
 );
 
 export default App;
