@@ -106,12 +106,16 @@ const StageSection: FC<StageSectionProps> = ({
           >
             {title}
           </h2>
-          <p
-            ref={descRef}
-            className="text-lg sm:text-xl md:text-2xl text-foreground/80 font-body leading-relaxed"
-          >
-            {description}
-          </p>
+          
+          {/* Description with Orange Border */}
+          <div className="border-2 border-[#F5A855] rounded-2xl p-4 sm:p-6 bg-white/50 backdrop-blur-sm shadow-sm">
+            <p
+              ref={descRef}
+              className="text-lg sm:text-xl md:text-2xl text-foreground/80 font-body leading-relaxed"
+            >
+              {description}
+            </p>
+          </div>
         </div>
       </div>
 

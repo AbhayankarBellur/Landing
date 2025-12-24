@@ -11,6 +11,7 @@ interface PhoneMockupProps {
 
 const PhoneMockup: FC<PhoneMockupProps> = ({ videoSrc, isLeft }) => {
   const phoneRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (!phoneRef.current) return;
@@ -40,6 +41,43 @@ const PhoneMockup: FC<PhoneMockupProps> = ({ videoSrc, isLeft }) => {
     return () => ctx.revert();
   }, [isLeft]);
 
+  // Ensure video plays and loops continuously
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleVideoLoad = () => {
+      video.play().catch(console.error);
+    };
+
+    const handleVideoEnd = () => {
+      video.currentTime = 0;
+      video.play().catch(console.error);
+    };
+
+    const handleVideoPause = () => {
+      video.play().catch(console.error);
+    };
+
+    // Force video to play when loaded
+    video.addEventListener('loadeddata', handleVideoLoad);
+    video.addEventListener('canplay', handleVideoLoad);
+    video.addEventListener('ended', handleVideoEnd);
+    video.addEventListener('pause', handleVideoPause);
+
+    // Initial play attempt
+    if (video.readyState >= 2) {
+      video.play().catch(console.error);
+    }
+
+    return () => {
+      video.removeEventListener('loadeddata', handleVideoLoad);
+      video.removeEventListener('canplay', handleVideoLoad);
+      video.removeEventListener('ended', handleVideoEnd);
+      video.removeEventListener('pause', handleVideoPause);
+    };
+  }, [videoSrc]);
+
   return (
     <div
       ref={phoneRef}
@@ -52,14 +90,26 @@ const PhoneMockup: FC<PhoneMockupProps> = ({ videoSrc, isLeft }) => {
           {/* Dynamic Island / Notch */}
           <div className="absolute top-2 sm:top-3 left-1/2 -translate-x-1/2 w-16 sm:w-20 md:w-24 h-4 sm:h-5 md:h-6 bg-foreground rounded-full z-10" />
 
-          {/* Video Screen */}
+          {/* Video Screen - Enhanced with all control-disabling attributes */}
           <video
+            ref={videoRef}
             src={videoSrc}
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover"
+            preload="auto"
+            controls={false}
+            controlsList="nodownload nofullscreen noremoteplayback"
+            disablePictureInPicture
+            disableRemotePlayback
+            webkit-playsinline="true"
+            x5-playsinline="true"
+            x5-video-player-type="h5"
+            x5-video-player-fullscreen="false"
+            className="w-full h-full object-cover video-no-controls"
+            onContextMenu={(e) => e.preventDefault()}
+            onDoubleClick={(e) => e.preventDefault()}
           />
         </div>
       </div>

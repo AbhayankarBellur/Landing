@@ -64,6 +64,7 @@ const Navbar = () => {
                   alt="Warmpawz"
                   className="h-16 w-auto"
                 />
+                <span className="text-xs font-semibold align-super ml-0.5">TM</span>
               </button>
             </div>
 

@@ -17,6 +17,7 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const stepRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -35,7 +36,51 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
     return () => observer.disconnect();
   }, []);
 
-  // Video content with built-in frame (no PhoneFrame wrapper needed)
+  // Ensure video plays and loops continuously
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !videoSrc) return;
+
+    const handleVideoLoad = () => {
+      video.play().catch(console.error);
+    };
+
+    const handleVideoEnd = () => {
+      video.currentTime = 0;
+      video.play().catch(console.error);
+    };
+
+    const handleVideoPause = () => {
+      video.play().catch(console.error);
+    };
+
+    const handleVideoError = () => {
+      // Retry loading the video
+      video.load();
+    };
+
+    // Force video to play when loaded
+    video.addEventListener('loadeddata', handleVideoLoad);
+    video.addEventListener('canplay', handleVideoLoad);
+    video.addEventListener('ended', handleVideoEnd);
+    video.addEventListener('pause', handleVideoPause);
+    video.addEventListener('error', handleVideoError);
+
+    // Initial play attempt
+    if (video.readyState >= 2) {
+      video.play().catch(console.error);
+    }
+
+    return () => {
+      video.removeEventListener('loadeddata', handleVideoLoad);
+      video.removeEventListener('canplay', handleVideoLoad);
+      video.removeEventListener('ended', handleVideoEnd);
+      video.removeEventListener('pause', handleVideoPause);
+      video.removeEventListener('error', handleVideoError);
+    };
+  }, [videoSrc]);
+
+  // Video content with enhanced controls disabled
   const videoContent = (
     <div
       className={`w-[220px] h-[450px] sm:w-[280px] sm:h-[570px] flex items-center justify-center transition-all duration-700 ${
@@ -45,18 +90,30 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
     >
       {videoSrc && (
         <video
+          ref={videoRef}
           src={videoSrc}
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-contain"
+          preload="auto"
+          controls={false}
+          controlsList="nodownload nofullscreen noremoteplayback"
+          disablePictureInPicture
+          disableRemotePlayback
+          webkit-playsinline="true"
+          x5-playsinline="true"
+          x5-video-player-type="h5"
+          x5-video-player-fullscreen="false"
+          className="w-full h-full object-contain video-no-controls"
+          onContextMenu={(e) => e.preventDefault()}
+          onDoubleClick={(e) => e.preventDefault()}
         />
       )}
     </div>
   );
 
-  // Text content
+  // Text content with alternating colors and orange border
   const textContent = (
     <div
       className={`flex-1 max-w-md text-center md:text-left ${
@@ -70,7 +127,11 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
       <h3 className="text-2xl md:text-3xl font-bold text-black mt-2 mb-4">
         {title}
       </h3>
-      <p className="text-foreground/80 text-lg leading-relaxed">{description}</p>
+      
+      {/* Description with Orange Border */}
+      <div className="border-2 border-[#F5A855] rounded-2xl p-4 sm:p-6 bg-white/50 backdrop-blur-sm shadow-sm">
+        <p className="text-lg leading-relaxed text-foreground/80">{description}</p>
+      </div>
     </div>
   );
 

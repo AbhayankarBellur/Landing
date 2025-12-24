@@ -110,4 +110,77 @@
   .phone-notch {
     @apply absolute top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-foreground rounded-full z-10;
   }
+
+  /* Video Control Suppression */
+  video::-webkit-media-controls {
+    display: none !important;
+  }
+
+  video::-webkit-media-controls-panel {
+    display: none !important;
+  }
+
+  video::-webkit-media-controls-play-button {
+    display: none !important;
+  }
+
+  video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+  }
+
+  video::-webkit-media-controls-volume-slider {
+    display: none !important;
+  }
+
+  video::-webkit-media-controls-mute-button {
+    display: none !important;
+  }
+
+  video::-webkit-media-controls-timeline {
+    display: none !important;
+  }
+
+  video::-webkit-media-controls-current-time-display {
+    display: none !important;
+  }
+
+  video::-webkit-media-controls-time-remaining-display {
+    display: none !important;
+  }
+
+  video::-webkit-media-controls-fullscreen-button {
+    display: none !important;
+  }
+
+  video::-webkit-media-controls-overlay-play-button {
+    display: none !important;
+  }
+
+  video::-webkit-media-controls-overlay-enclosure {
+    display: none !important;
+  }
+
+  /* Firefox video controls */
+  video::-moz-media-controls {
+    display: none !important;
+  }
+
+  /* IE/Edge video controls */
+  video::-ms-media-controls {
+    display: none !important;
+  }
+
+  /* Disable video interactions */
+  .video-no-controls {
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
+  }
+
+  .video-no-controls:focus {
+    outline: none;
+  }
 }

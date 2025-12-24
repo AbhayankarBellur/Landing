@@ -1,19 +1,19 @@
 import { Navbar, Footer } from "@/components/shared";
+import { ServicesPhoneFrame } from "@/components/services";
 
 const ServicesPage = () => {
   return (
     <>
       <Navbar />
       <main className="min-h-screen bg-white pt-32 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto py-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-8">
-            Services
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-4">
+            Our Services
           </h1>
-          <div className="text-center text-gray-600">
-            <p className="text-lg">
-              This page is under construction. Please check back soon for more information.
-            </p>
-          </div>
+          <p className="text-center text-gray-600 mb-8 text-lg">
+            Explore our comprehensive pet care services
+          </p>
+          <ServicesPhoneFrame />
         </div>
       </main>
       <Footer />
