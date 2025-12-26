@@ -30,7 +30,7 @@ const Mission = () => {
 			<div className="max-w-4xl mx-auto">
 				<div className="text-center">
 					<div
-						className={`inline-block bg-white rounded-3xl shadow-lg p-12 md:p-16 transition-all duration-360 ease-out ${
+						className={`inline-block bg-white rounded-3xl shadow-lg p-12 md:p-16 border-2 border-[#F5A855] transition-all duration-360 ease-out ${
 							isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
 						}`}
 					>

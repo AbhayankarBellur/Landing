@@ -4,25 +4,17 @@ interface AppDownloadLinksProps {
 
 const AppDownloadLinks = ({ onNavigate }: AppDownloadLinksProps) => {
 	return (
-		<div className="flex space-x-3">
-			<button
-				onClick={() => onNavigate("/about")}
-				className="flex items-center space-x-1 text-xs text-gray-600 hover:text-[#F5A855] transition-colors text-left"
-			>
-				<div className="w-4 h-4 bg-gray-800 rounded-sm flex items-center justify-center">
-					<span className="text-white text-xs">A</span>
-				</div>
-				<span>Android</span>
-			</button>
-			<button
-				onClick={() => onNavigate("/about")}
-				className="flex items-center space-x-1 text-xs text-gray-600 hover:text-[#F5A855] transition-colors text-left"
-			>
-				<div className="w-4 h-4 bg-gray-800 rounded-sm flex items-center justify-center">
-					<span className="text-white text-xs">🍎</span>
-				</div>
-				<span>iOS</span>
-			</button>
+		<div className="flex flex-col space-y-2 items-center">
+			<img
+				src="/images/apple.png"
+				alt="Download on the App Store"
+				className="w-[190px] h-auto"
+			/>
+			<img
+				src="/images/google.png"
+				alt="Get it on Google Play"
+				className="w-[130px] h-auto"
+			/>
 		</div>
 	);
 };

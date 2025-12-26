@@ -65,12 +65,20 @@ const PhoneMockup: FC<PhoneMockupProps> = ({ videoSrc, isLeft }) => {
     video.addEventListener('ended', handleVideoEnd);
     video.addEventListener('pause', handleVideoPause);
 
+    // Aggressive playback monitoring - check every 500ms
+    const playbackInterval = setInterval(() => {
+      if (video.paused) {
+        video.play().catch(console.error);
+      }
+    }, 500);
+
     // Initial play attempt
     if (video.readyState >= 2) {
       video.play().catch(console.error);
     }
 
     return () => {
+      clearInterval(playbackInterval);
       video.removeEventListener('loadeddata', handleVideoLoad);
       video.removeEventListener('canplay', handleVideoLoad);
       video.removeEventListener('ended', handleVideoEnd);

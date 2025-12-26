@@ -52,16 +52,18 @@ const UserWalkthroughPage = () => {
 				className="relative font-body"
 				style={{
 					background:
-						"linear-gradient(180deg, #FFF1E6 0%, #FFF8D6 45%, #FFFFFF 100%)",
+						"linear-gradient(180deg, #FFD4A8 0%, #FFCA99 42%, #FFE8D6 100%)",
 					backgroundRepeat: "no-repeat",
 					backgroundAttachment: "fixed",
 					transition: "background 0.3s ease-in-out",
 				}}
 			>
-				<BackButton className="bg-secondary border-border hover:bg-muted text-foreground" />
-				<HeroSection />
-				<StagesList />
-				<FAQSection />
+				<div className="pt-32">
+					<BackButton className="bg-secondary border-border hover:bg-muted text-foreground" />
+					<HeroSection />
+					<StagesList />
+					<FAQSection />
+				</div>
 			</main>
 			<Footer />
 		</>

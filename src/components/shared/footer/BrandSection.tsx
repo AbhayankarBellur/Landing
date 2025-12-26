@@ -7,8 +7,7 @@ const BrandSection = () => {
 				<img src={warmpawzLogo} alt="Warmpawz" className="h-16 w-auto" />
 				<span className="text-xs font-semibold align-super ml-0.5">TM</span>
 			</div>
-			<h3 className="text-base font-bold text-gray-900 mb-0.5">Pet Care.</h3>
-			<h3 className="text-base font-bold text-gray-900 mb-2">Reimagined.</h3>
+			<h3 className="text-sm font-bold text-gray-900 mb-2">Pet Care. Reimagined.</h3>
 			<p className="text-xs text-gray-600">Warmpawz, 2025</p>
 		</div>
 	);

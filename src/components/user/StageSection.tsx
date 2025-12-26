@@ -83,7 +83,7 @@ const StageSection: FC<StageSectionProps> = ({
   const stageColorClass = `text-stage-${stage}`;
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen bg-background">
+    <section ref={sectionRef} className="relative min-h-screen">
       <div
         className={`min-h-screen flex flex-col ${
           isLeft ? "lg:flex-row" : "lg:flex-row-reverse"
@@ -108,7 +108,7 @@ const StageSection: FC<StageSectionProps> = ({
           </h2>
           
           {/* Description with Orange Border */}
-          <div className="border-2 border-[#F5A855] rounded-2xl p-4 sm:p-6 bg-white/50 backdrop-blur-sm shadow-sm">
+          <div className="border-2 border-[#F5A855] rounded-2xl p-4 sm:p-6 bg-white shadow-sm">
             <p
               ref={descRef}
               className="text-lg sm:text-xl md:text-2xl text-foreground/80 font-body leading-relaxed"

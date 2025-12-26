@@ -48,7 +48,7 @@ const steps = [
     stepNumber: 7,
     title: "Congrats! You're Ready!",
     description:
-      "You are ready to receive your Pet Parents. Start connecting with pet owners and grow your business.",
+      "You are ready to receive your Pet Parents. Start connecting with pet parents and grow your business.",
     videoSrc: "/videos/step7.mov",
   },
 ];

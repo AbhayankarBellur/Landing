@@ -7,7 +7,7 @@ interface CurvedArrowProps {
 
 const CurvedArrow: FC<CurvedArrowProps> = ({ direction, className = "" }) => {
   const isLeft = direction === "left";
-  const arrowSrc = isLeft ? "/videos/left.png" : "/videos/right.png";
+  const arrowSrc = isLeft ? "/images/left.png" : "/images/right.png";
 
   return (
     <img

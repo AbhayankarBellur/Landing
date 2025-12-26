@@ -16,7 +16,7 @@ const services: Service[] = [
 		isActive: true,
 		image: "/images/adoption.png",
 		description:
-			"Bringing pet parents and ethical adoption partners together to ensure every pet is welcomed into a prepared, loving home. From Discovery to Consultant on Call, the platform ensures parents are prepared for the beautiful adventure ahead!",
+			"Bringing pet parents and ethical adoption partners together to ensure every pet is welcomed into a prepared, loving home. From Discovery to Consultant on Call, the platform ensures parents are prepared for the beautiful experiences ahead!",
 	},
 	{
 		id: 2,
@@ -32,7 +32,7 @@ const services: Service[] = [
 		isActive: true,
 		image: "/images/grooming.png",
 		description:
-			"Uniting gentle groomers and caring families around stress‑free hygiene and wellbeing‑first practices. From Subscribing to regular grooming as a means of wellbeing to impromptu beauty treatments, the platform supports doorstep and at center services seamlessly.",
+			"Uniting gentle groomers and caring families around stress‑free hygiene and wellbeing‑first practices. From Subscribing to regular grooming as a means of wellbeing to impromptu wellness treatments, the platform supports doorstep and at center services seamlessly.",
 	},
 	{
 		id: 4,
@@ -40,7 +40,7 @@ const services: Service[] = [
 		isActive: false,
 		image: "/images/training.png",
 		description:
-			"Aligning responsible pet parents and humane trainers to build confidence, communication, and trust. From finding the right trainers to engaging follow ups, the platform ensures a personal bond that lasts long!",
+			"Aligning pet parents and humane trainers to build confidence, communication, and trust. From finding the right trainers to engaging follow ups, the platform ensures a personal bond with the pet that lasts long!",
 	},
 	{
 		id: 5,
@@ -48,7 +48,7 @@ const services: Service[] = [
 		isActive: true,
 		image: "/images/behaviourist.png",
 		description:
-			"Creating space for thoughtful behaviour support that helps pets be understood and supported, not rushed or labelled. From early assessments to ongoing behavioural support, the platform connects pet parents and specialists to work together patiently and thoughtfully, ensuring pets are supported emotionally while families feel guided, not judged.",
+			"From early assessments to ongoing behavioural support, the platform connects pet parents and specialists to work together patiently and thoughtfully, ensuring pets are supported emotionally and understood while families feel guided.",
 	},
 	{
 		id: 6,
@@ -56,7 +56,7 @@ const services: Service[] = [
 		isActive: false,
 		image: "/images/boarding.png",
 		description:
-			"Linking families and care providers through safe, routine‑driven environments when being apart is unavoidable. From short stays to extended care, the platform ensures transparency, familiarity, and trust — so pets feel secure and parents feel reassured.",
+			"Connecting families and care providers through safe, routine‑driven environments when being apart is unavoidable. From short stays to extended care, the platform ensures transparency, familiarity, hygienic environment and trust — so pets feel secure and parents feel reassured.",
 	},
 	{
 		id: 7,
@@ -64,7 +64,7 @@ const services: Service[] = [
 		isActive: false,
 		image: "/images/food.png",
 		description:
-			"Bringing together expert guidance and informed pet parents to make feeding simple, safe, and health‑led. From daily diet planning to health‑led nutritional support, the platform helps parents move from confusion to confidence with advice that evolves as their pet grows.",
+			"Bringing together expert guidance and informed pet parents to make pet nutrition simple, safe, and health‑led. From daily diet planning to health‑led nutritional support, the platform helps pet parents move from dilemma to confidence with advice that evolves as their pet grows.",
 	},
 	{
 		id: 8,
@@ -72,7 +72,7 @@ const services: Service[] = [
 		isActive: true,
 		image: "/images/cafe.png",
 		description:
-			"Enabling truly pet‑inclusive experiences by connecting families with places designed to welcome pets with care. From weekend getaways, special occasions to everyday outings, the platform helps parents include their companions in life's moments without compromise.",
+			"Enabling truly pet‑inclusive experiences by connecting families with pet-friendly places designed to welcome pets. From weekend getaways, special occasions to everyday outings, the platform helps parents include their companions in creating life's moments.",
 	},
 	{
 		id: 9,
@@ -80,7 +80,7 @@ const services: Service[] = [
 		isActive: false,
 		image: "/images/product.png",
 		description:
-			"Curating responsible products and ethical brands into one trusted marketplace for everyday pet needs. From everyday essentials to thoughtful discoveries, the platform simplifies choices by bringing quality, safety, and purpose‑driven commerce together in one place.",
+			"Curating responsible products from ethical brands that follow sustainable practices into one trusted marketplace for everyday pet needs. From everyday essentials to thoughtful discoveries, the platform simplifies choices by bringing quality, safety, and purpose‑driven commerce together in one place.",
 	},
 	{
 		id: 10,
@@ -117,7 +117,12 @@ const ServicesPhoneFrame = () => {
 			{/* Mobile Phone Frame */}
 			<div className="relative w-[280px] sm:w-[320px] md:w-[360px] aspect-[9/19.5] bg-gray-900 rounded-[2.5rem] p-2 shadow-2xl">
 				{/* Phone inner bezel */}
-				<div className="relative bg-[#F9FAFB] rounded-[2rem] overflow-hidden w-full h-full">
+				<div 
+					className="relative rounded-[2rem] overflow-hidden w-full h-full"
+					style={{
+						background: "linear-gradient(180deg, #FFD4A8 0%, #FFCA99 42%, #FFE8D6 100%)",
+					}}
+				>
 					{/* Dynamic Island / Notch */}
 					<div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-gray-900 rounded-full z-20" />
 

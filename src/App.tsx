@@ -10,6 +10,8 @@ import AboutUsPage from "./app/about/page";
 import ServicesPage from "./app/services/page";
 import BlogPage from "./app/blog/page";
 import NewsEventsPage from "./app/news-events/page";
+import CareersPage from "./app/careers/page";
+import PoliciesPage from "./app/policies/page";
 import NotFoundPage from "./app/not-found/page";
 
 const queryClient = new QueryClient();
@@ -17,7 +19,7 @@ const queryClient = new QueryClient();
 const App = () => (
 	<QueryClientProvider client={queryClient}>
 		<TooltipProvider>
-			<div className="brand-gradient">
+			<div className="brand-gradient overflow-x-hidden">
 				<Toaster />
 				<Sonner />
 				<BrowserRouter>
@@ -32,6 +34,8 @@ const App = () => (
 						<Route path="/services" element={<ServicesPage />} />
 						<Route path="/blog" element={<BlogPage />} />
 						<Route path="/news-events" element={<NewsEventsPage />} />
+						<Route path="/careers" element={<CareersPage />} />
+						<Route path="/policies" element={<PoliciesPage />} />
 						{/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
 						<Route path="*" element={<NotFoundPage />} />
 					</Routes>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import emailjs from "@emailjs/browser";
 
 interface ContactModalProps {
 	isOpen: boolean;
@@ -11,6 +12,11 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 	const modalRef = useRef<HTMLDivElement>(null);
 	const backdropRef = useRef<HTMLDivElement>(null);
 	const modalContentRef = useRef<HTMLDivElement>(null);
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [submitStatus, setSubmitStatus] = useState<{
+		type: "success" | "error" | null;
+		message: string;
+	}>({ type: null, message: "" });
 	const [formData, setFormData] = useState({
 		fullName: "",
 		email: "",
@@ -119,10 +125,107 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 		}));
 	};
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log("Form submitted:", formData);
-		handleClose();
+		
+		// Validate form
+		if (!formData.fullName || !formData.email || !formData.query) {
+			setSubmitStatus({
+				type: "error",
+				message: "Please fill in all required fields.",
+			});
+			return;
+		}
+
+		setIsSubmitting(true);
+		setSubmitStatus({ type: null, message: "" });
+
+		try {
+			// EmailJS configuration
+			const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+			const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+			const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+			// Debug: Check if env vars are loaded
+			console.log("ENV CHECK:", {
+				serviceId,
+				templateId,
+				publicKey,
+				allEnv: import.meta.env,
+			});
+
+			// Validate env vars are present
+			if (!serviceId || !templateId || !publicKey) {
+				throw new Error(
+					`Missing EmailJS configuration. Please restart dev server. Missing: ${
+						!serviceId ? "SERVICE_ID " : ""
+					}${!templateId ? "TEMPLATE_ID " : ""}${!publicKey ? "PUBLIC_KEY" : ""}`
+				);
+			}
+
+			// Template parameters - must match your EmailJS template exactly
+			const templateParams = {
+				// REQUIRED by EmailJS template - hardcoded sender
+				from_name: "Warmpawz Platform",
+				from_email: "platform@warmpawz.com",
+				// YOUR FORM DATA
+				phone: formData.phone || "Not provided",
+				user_type: formData.userType || "Not specified",
+				message: `Name: ${formData.fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone || "Not provided"}\nUser Type: ${formData.userType || "Not specified"}\n\nMessage:\n${formData.query}`,
+				// HARD SET RECEIVER
+				to_email: "vikrambellurv@gmail.com",
+			};
+
+			console.log("Sending email with params:", templateParams);
+
+			// Send email using EmailJS
+			const result = await emailjs.send(
+				serviceId,
+				templateId,
+				templateParams,
+				publicKey
+			);
+
+			console.log("EmailJS Result:", result);
+
+			if (result.status === 200) {
+				setSubmitStatus({
+					type: "success",
+					message: "Thank you! Your message has been sent successfully.",
+				});
+				
+				// Reset form
+				setFormData({
+					fullName: "",
+					email: "",
+					phone: "",
+					userType: "",
+					query: "",
+				});
+
+				// Close modal after 2 seconds
+				setTimeout(() => {
+					handleClose();
+				}, 2000);
+			}
+		} catch (error: any) {
+			console.error("EmailJS Error Details:", error);
+			console.error("Error text:", error.text);
+			console.error("Error status:", error.status);
+			
+			let errorMessage = "Failed to send message. Please try again or email us directly at contact@warmpawz.com";
+			
+			if (error.text) {
+				errorMessage = `Error: ${error.text}. Please contact us at contact@warmpawz.com`;
+			}
+			
+			setSubmitStatus({
+				type: "error",
+				message: errorMessage,
+			});
+		} finally {
+			setIsSubmitting(false);
+		}
 	};
 
 	if (!isVisible) return null;
@@ -175,12 +278,25 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 						</p>
 
 						<form onSubmit={handleSubmit} className="space-y-4">
+							{/* Status Message */}
+							{submitStatus.type && (
+								<div
+									className={`p-4 rounded-lg text-sm ${
+										submitStatus.type === "success"
+											? "bg-green-50 text-green-800 border border-green-200"
+											: "bg-red-50 text-red-800 border border-red-200"
+									}`}
+								>
+									{submitStatus.message}
+								</div>
+							)}
+
 							<div>
 								<label
 									htmlFor="modalFullName"
 									className="block text-sm font-medium text-gray-700 mb-2"
 								>
-									Full Name
+									Full Name <span className="text-red-500">*</span>
 								</label>
 								<input
 									type="text"
@@ -189,7 +305,9 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 									value={formData.fullName}
 									onChange={handleInputChange}
 									placeholder="Ex: Sparky Singh"
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent transition-colors"
+									required
+									disabled={isSubmitting}
+									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
 									style={{ minHeight: "48px" }}
 								/>
 							</div>
@@ -199,7 +317,7 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 									htmlFor="modalEmail"
 									className="block text-sm font-medium text-gray-700 mb-2"
 								>
-									Email Address
+									Email Address <span className="text-red-500">*</span>
 								</label>
 								<input
 									type="email"
@@ -208,7 +326,9 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 									value={formData.email}
 									onChange={handleInputChange}
 									placeholder="Sparky@gmail.com"
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent transition-colors"
+									required
+									disabled={isSubmitting}
+									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
 									style={{ minHeight: "48px" }}
 								/>
 							</div>
@@ -227,7 +347,8 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 									value={formData.phone}
 									onChange={handleInputChange}
 									placeholder="+91 9876 54321"
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent transition-colors"
+									disabled={isSubmitting}
+									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
 									style={{ minHeight: "48px" }}
 								/>
 							</div>
@@ -244,7 +365,8 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 									name="userType"
 									value={formData.userType}
 									onChange={handleInputChange}
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent transition-colors"
+									disabled={isSubmitting}
+									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
 									style={{ minHeight: "48px" }}
 								>
 									<option value="">Select user type</option>
@@ -258,7 +380,7 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 									htmlFor="modalQuery"
 									className="block text-sm font-medium text-gray-700 mb-2"
 								>
-									Query?
+									Query? <span className="text-red-500">*</span>
 								</label>
 								<textarea
 									id="modalQuery"
@@ -267,7 +389,9 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 									onChange={handleInputChange}
 									placeholder="Type your query"
 									rows={3}
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent resize-none transition-colors"
+									required
+									disabled={isSubmitting}
+									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent resize-none transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
 									style={{ minHeight: "80px" }}
 								/>
 							</div>
@@ -277,17 +401,19 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 								<button
 									type="button"
 									onClick={handleClose}
-									className="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-1"
+									disabled={isSubmitting}
+									className="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed"
 									style={{ minHeight: "48px" }}
 								>
 									Cancel
 								</button>
 								<button
 									type="submit"
-									className="flex-1 bg-[#F5A855] text-white px-4 py-3 rounded-lg text-sm font-medium hover:bg-[#E09642] transition-colors focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:ring-offset-1"
+									disabled={isSubmitting}
+									className="flex-1 bg-[#F5A855] text-white px-4 py-3 rounded-lg text-sm font-medium hover:bg-[#E09642] transition-colors focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed"
 									style={{ minHeight: "48px" }}
 								>
-									Submit
+									{isSubmitting ? "Sending..." : "Submit"}
 								</button>
 							</div>
 						</form>

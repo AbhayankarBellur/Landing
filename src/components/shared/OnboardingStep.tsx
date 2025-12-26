@@ -41,8 +41,22 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
     const video = videoRef.current;
     if (!video || !videoSrc) return;
 
+    let videoDuration = 0;
+    const isStep3 = stepNumber === 3;
+
     const handleVideoLoad = () => {
+      if (isStep3 && video.duration) {
+        videoDuration = video.duration - 2; // Cut off last 2 seconds for step 3
+      }
       video.play().catch(console.error);
+    };
+
+    const handleTimeUpdate = () => {
+      // For step 3, loop before the last second
+      if (isStep3 && videoDuration > 0 && video.currentTime >= videoDuration) {
+        video.currentTime = 0;
+        video.play().catch(console.error);
+      }
     };
 
     const handleVideoEnd = () => {
@@ -62,9 +76,17 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
     // Force video to play when loaded
     video.addEventListener('loadeddata', handleVideoLoad);
     video.addEventListener('canplay', handleVideoLoad);
+    video.addEventListener('timeupdate', handleTimeUpdate);
     video.addEventListener('ended', handleVideoEnd);
     video.addEventListener('pause', handleVideoPause);
     video.addEventListener('error', handleVideoError);
+
+    // Aggressive playback monitoring - check every 500ms
+    const playbackInterval = setInterval(() => {
+      if (video.paused) {
+        video.play().catch(console.error);
+      }
+    }, 500);
 
     // Initial play attempt
     if (video.readyState >= 2) {
@@ -72,18 +94,20 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
     }
 
     return () => {
+      clearInterval(playbackInterval);
       video.removeEventListener('loadeddata', handleVideoLoad);
       video.removeEventListener('canplay', handleVideoLoad);
+      video.removeEventListener('timeupdate', handleTimeUpdate);
       video.removeEventListener('ended', handleVideoEnd);
       video.removeEventListener('pause', handleVideoPause);
       video.removeEventListener('error', handleVideoError);
     };
-  }, [videoSrc]);
+  }, [videoSrc, stepNumber]);
 
   // Video content with enhanced controls disabled
   const videoContent = (
     <div
-      className={`w-[220px] h-[450px] sm:w-[280px] sm:h-[570px] flex items-center justify-center transition-all duration-700 ${
+      className={`flex items-center justify-center transition-all duration-700 bg-transparent ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{ transitionDelay: "0.1s" }}
@@ -105,7 +129,7 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
           x5-playsinline="true"
           x5-video-player-type="h5"
           x5-video-player-fullscreen="false"
-          className="w-full h-full object-contain video-no-controls"
+          className="w-[220px] h-[450px] sm:w-[280px] sm:h-[570px] object-contain video-no-controls bg-transparent rounded-[56px]"
           onContextMenu={(e) => e.preventDefault()}
           onDoubleClick={(e) => e.preventDefault()}
         />
@@ -129,7 +153,7 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
       </h3>
       
       {/* Description with Orange Border */}
-      <div className="border-2 border-[#F5A855] rounded-2xl p-4 sm:p-6 bg-white/50 backdrop-blur-sm shadow-sm">
+      <div className="border-2 border-[#F5A855] rounded-2xl p-4 sm:p-6 bg-white shadow-sm">
         <p className="text-lg leading-relaxed text-foreground/80">{description}</p>
       </div>
     </div>

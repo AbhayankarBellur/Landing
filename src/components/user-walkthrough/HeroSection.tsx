@@ -1,6 +1,6 @@
 const HeroSection = () => {
   return (
-    <section className="min-h-[70vh] flex flex-col items-center justify-center px-4 sm:px-6 md:px-12 pt-32 text-center bg-background">
+    <section className="min-h-[70vh] flex flex-col items-center justify-center px-4 sm:px-6 md:px-12 pt-32 text-center bg-white">
       {/* Main Title */}
       <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-6 sm:mb-8">
         Your Pet's Journey with Warmpawz

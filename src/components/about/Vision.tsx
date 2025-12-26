@@ -36,11 +36,11 @@ const Vision = () => {
 								: "opacity-0 -translate-x-3"
 						}`}
 					>
-						<h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
-							Our Vision
-						</h2>
-						<div className="w-24 h-1 bg-[#F5A855] mx-auto rounded-full mb-12"></div>
-						<div className="bg-white rounded-3xl p-12 md:p-16 shadow-lg">
+						<div className="bg-white rounded-3xl p-12 md:p-16 shadow-lg border-2 border-[#F5A855]">
+							<h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
+								Our Vision
+							</h2>
+							<div className="w-24 h-1 bg-[#F5A855] mx-auto rounded-full mb-12"></div>
 							<p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium">
 								A future where pet care is trusted, connected, and
 								community-driven — enriching the lives of pets, their families,

@@ -20,31 +20,38 @@ const Footer = () => {
 			{/* Thin orange separator line between body and footer */}
 			<div className="w-full h-px bg-[#F5A855]" />
 
-			<footer className="bg-white pt-8 pb-8 px-4 sm:px-6 lg:px-8">
+			<footer className="bg-white pt-8 pb-4 px-4 sm:px-6 lg:px-8">
 				<div className="max-w-7xl mx-auto">
-					<div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-12">
+					<div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-12 pb-4">
 						{/* Brand Section */}
 						<BrandSection />
 
 						{/* Policies Section */}
-						<div className="col-span-1 md:col-span-1 lg:col-span-1">
+						<div className="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col items-center lg:items-start">
 							<h4 className="text-base font-semibold text-gray-900 mb-2 mt-[4.5rem] lg:mt-0">
 								Policies
 							</h4>
-							<div className="space-y-1">
+							<div className="space-y-1 flex flex-col items-center lg:items-start mb-6">
 								<button
-									onClick={() => handleNavigation("/about")}
-									className="block text-xs text-gray-600 hover:text-[#F5A855] transition-colors text-left"
+									onClick={() => handleNavigation("/policies")}
+									className="block text-xs text-gray-600 hover:text-[#F5A855] transition-colors text-center lg:text-left"
 								>
 									Privacy
 								</button>
 								<button
-									onClick={() => handleNavigation("/about")}
-									className="block text-xs text-gray-600 hover:text-[#F5A855] transition-colors text-left"
+									onClick={() => handleNavigation("/policies")}
+									className="block text-xs text-gray-600 hover:text-[#F5A855] transition-colors text-center lg:text-left"
 								>
 									Security
 								</button>
 							</div>
+							
+							<button
+								onClick={() => handleNavigation("/careers")}
+								className="text-base font-semibold text-gray-900 hover:text-[#F5A855] transition-colors text-center lg:text-left block"
+							>
+								Careers
+							</button>
 						</div>
 
 						{/* About Us Section */}
@@ -59,7 +66,7 @@ const Footer = () => {
 						</div>
 
 						{/* Get the App Section */}
-						<div className="col-span-1 md:col-span-1 lg:col-span-1">
+						<div className="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col items-center">
 							<h4 className="text-base font-semibold text-gray-900 mb-2">
 								Get the app
 							</h4>

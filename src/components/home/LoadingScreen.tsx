@@ -32,13 +32,13 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   }, []);
 
   const handleVideoEnd = () => {
-    // Start dissolving the video
+    // Start dissolving the video immediately
     setVideoOpacity(0);
     
     // After video dissolve completes, call onComplete
     setTimeout(() => {
       onComplete();
-    }, 1000); // Match the dissolve duration
+    }, 500); // Faster dissolve duration
   };
 
   // Choose video source based on device type
@@ -52,7 +52,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
         muted
         playsInline
         onEnded={handleVideoEnd}
-        className="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-out"
+        className="absolute inset-0 w-full h-full transition-opacity duration-500 ease-out"
         style={{ 
           opacity: videoOpacity,
           objectFit: 'cover',

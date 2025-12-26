@@ -21,29 +21,6 @@ const FoundersStory = () => {
 		return () => observer.disconnect();
 	}, [isVisible]);
 
-	const storyBeats = [
-		{
-			title: "The Conversation",
-			content:
-				"Warmpawz began on a cold winter night, during a quiet conversation among family friends — most of them pet parents. What started as casual discussion soon turned into shared anxiety about one thing: how hard it was to access reliable emergency care for their furry family members.",
-		},
-		{
-			title: "The Discovery",
-			content:
-				"As we began exploring what existed in the public domain for pet parents, a deeper truth emerged — a significant gap. Not just in emergency care, but across the entire journey of pet parenthood.",
-		},
-		{
-			title: "The Question",
-			content:
-				"We also asked ourselves another important question: If this journey felt overwhelming for pet parents, how difficult must it be for genuine pet care providers trying to reach the families who need them most?",
-		},
-		{
-			title: "The Vision",
-			content:
-				"That question led to the idea of a Connected Ecosystem — a trusted pet services marketplace. A platform where pet parents can access verified service providers with clarity and confidence.",
-		},
-	];
-
 	return (
 		<section
 			id="story"
@@ -62,58 +39,63 @@ const FoundersStory = () => {
 					<div className="w-24 h-1 bg-[#F5A855] mx-auto rounded-full"></div>
 				</div>
 
-				<div className="space-y-12">
-					{storyBeats.map((beat, index) => (
-						<div
-							key={index}
-							className={`transition-all duration-300 ease-out ${
-								isVisible
-									? "opacity-100 translate-y-0"
-									: "opacity-0 translate-y-8"
-							}`}
-							style={{
-								transitionDelay: isVisible ? `${(index + 1) * 120}ms` : "0ms",
-							}}
-						>
-							<div className="flex items-start space-x-6">
-								<div className="flex-shrink-0">
-									<div className="w-3 h-3 bg-[#F5A855] rounded-full mt-2"></div>
-								</div>
-								<div className="flex-1">
-									<h3 className="text-xl font-semibold text-gray-900 mb-3">
-										{beat.title}
-									</h3>
-									<p className="text-gray-600 leading-relaxed text-lg">
-										{beat.content}
-									</p>
-								</div>
-							</div>
+				<div
+					className={`transition-all duration-300 ease-out ${
+						isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+					}`}
+				>
+					<div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg border-2 border-[#F5A855]">
+						<div className="prose prose-lg max-w-none">
+							<p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6">
+								Warmpawz began on a cold winter night, during a quiet conversation
+								among family friends — mostly pet parents. What started as
+								casual discussion soon turned into shared anxiety about one thing:
+								how hard it was to access reliable emergency care for their furry
+								family members.
+							</p>
+							<p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6">
+								As we began exploring what existed in the public domain for pet
+								parents, a deeper truth emerged — a significant gap. Not just in
+								emergency care, but across the entire journey of pet parenthood.
+							</p>
+							<p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6">
+								We also asked ourselves another important question: If this journey
+								felt overwhelming for pet parents, how difficult must it be for
+								genuine pet care providers trying to reach the families who need
+								them most?
+							</p>
+							<p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
+								That question led to the idea of a Connected Ecosystem — a trusted
+								pet services marketplace. A platform where pet parents can access
+								verified service providers with trust, clarity and confidence.
+							</p>
 						</div>
-					))}
+					</div>
 				</div>
 
 				<div
-					className={`mt-16 p-8 bg-gray-50 rounded-2xl transition-all duration-300 ease-out ${
+					className={`mt-16 p-8 md:p-12 bg-white rounded-2xl border-2 border-[#F5A855] text-center transition-all duration-300 ease-out ${
 						isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
 					}`}
 					style={{
 						transitionDelay: isVisible ? "600ms" : "0ms",
 					}}
 				>
-					<h3 className="text-2xl font-semibold text-gray-900 mb-4">
+					<h3 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
 						Why Warmpawz Exists
 					</h3>
-					<p className="text-gray-600 leading-relaxed text-lg mb-4">
-						Pet care in India has grown, but it has not grown together. Services
-						remain fragmented, knowledge is unevenly distributed, and trust is
+					<div className="w-24 h-1 bg-[#F5A855] mx-auto rounded-full mb-8"></div>
+					<p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium mb-4">
+						Pet care in India has grown but services
+						remain fragmented. Knowledge is unevenly distributed, and trust is
 						often built through personal networks rather than transparent
 						systems.
 					</p>
-					<p className="text-gray-600 leading-relaxed text-lg">
+					<p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium">
 						Warmpawz exists to bring structure without rigidity, standards
 						without exclusion, and choice without confusion. We believe
 						meaningful care emerges when service providers are supported to
-						innovate responsibly, and pet parents are equipped to make informed,
+						innovate responsibly and pet parents are guided to make informed,
 						compassionate choices.
 					</p>
 				</div>

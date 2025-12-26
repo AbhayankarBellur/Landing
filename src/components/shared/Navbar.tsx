@@ -6,6 +6,8 @@ const Navbar = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const [isVisible, setIsVisible] = useState(true);
+	const [lastScrollY, setLastScrollY] = useState(0);
 
 	const handleNavigation = (path: string) => {
 		// Mark that user has navigated within the session
@@ -27,6 +29,32 @@ const Navbar = () => {
 		setIsMobileMenuOpen(false);
 	};
 
+	// Handle scroll to show/hide navbar
+	useEffect(() => {
+		const handleScroll = () => {
+			const currentScrollY = window.scrollY;
+
+			if (currentScrollY < 10) {
+				// Always show at top
+				setIsVisible(true);
+			} else if (currentScrollY > lastScrollY) {
+				// Scrolling down - hide navbar
+				setIsVisible(false);
+			} else {
+				// Scrolling up - show navbar
+				setIsVisible(true);
+			}
+
+			setLastScrollY(currentScrollY);
+		};
+
+		window.addEventListener("scroll", handleScroll, { passive: true });
+
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, [lastScrollY]);
+
 	// Handle body scroll when menu opens/closes
 	useEffect(() => {
 		if (isMobileMenuOpen) {
@@ -43,7 +71,11 @@ const Navbar = () => {
 
 	return (
 		<>
-			<nav className="fixed top-4 left-4 right-4 md:left-1/2 md:right-auto md:-translate-x-1/2 z-40 bg-white rounded-full shadow-lg border border-gray-100">
+			<nav
+				className={`fixed top-4 left-4 right-4 md:left-1/2 md:right-auto md:-translate-x-1/2 z-40 bg-white rounded-full shadow-lg border border-gray-100 transition-all duration-300 ease-in-out ${
+					isVisible ? "translate-y-0 opacity-100" : "-translate-y-24 opacity-0"
+				}`}
+			>
 				<div className="px-6">
 					<div className="flex justify-start items-center gap-12 h-20">
 						{/* Logo */}

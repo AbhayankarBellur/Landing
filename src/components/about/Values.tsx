@@ -56,55 +56,66 @@ const Values = () => {
 		>
 			<div className="max-w-6xl mx-auto">
 				<div
-					className={`text-center mb-16 transition-all duration-300 ease-out ${
+					className={`bg-white rounded-3xl p-8 md:p-12 shadow-lg border-2 border-[#F5A855] transition-all duration-300 ease-out ${
 						isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
 					}`}
 				>
-					<h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-						Our Values
-					</h2>
-					<div className="w-24 h-1 bg-[#F5A855] mx-auto rounded-full"></div>
-				</div>
+					{/* Header inside the box */}
+					<div className="text-center mb-12">
+						<h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+							Our Values
+						</h2>
+						<div className="w-24 h-1 bg-[#F5A855] mx-auto rounded-full"></div>
+					</div>
 
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-					{values.map((value, index) => (
-						<div
-							key={index}
-							className={`group bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out ${
-								isVisible
-									? "opacity-100 translate-y-0"
-									: "opacity-0 translate-y-8"
-							}`}
+					{/* Values grid */}
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+						{values.map((value, index) => (
+							<div
+								key={index}
+								className={`group rounded-2xl p-8 border-2 border-gray-200 hover:border-[#F5A855] hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-out ${
+									isVisible
+										? "opacity-100 translate-y-0"
+										: "opacity-0 translate-y-8"
+								}`}
+								style={{
+									background: "linear-gradient(180deg, #FFD4A8 0%, #FFCA99 42%, #FFE8D6 100%)",
+									transitionDelay: isVisible ? `${index * 120}ms` : "0ms",
+								}}
+							>
+								<div className="text-4xl mb-4">{value.icon}</div>
+								<h3 className="text-2xl font-bold text-gray-900 mb-4">
+									{value.title}
+								</h3>
+								<p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium">
+									{value.description}
+								</p>
+							</div>
+						))}
+					</div>
+
+					{/* Warmth value centered at bottom */}
+					<div
+						className={`mt-8 text-center transition-all duration-300 ease-out ${
+							isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+						}`}
+						style={{
+							transitionDelay: isVisible ? "600ms" : "0ms",
+						}}
+					>
+						<div 
+							className="rounded-2xl p-8 border-2 border-gray-200 inline-block hover:border-[#F5A855] hover:shadow-md transition-all duration-300"
 							style={{
-								transitionDelay: isVisible ? `${index * 120}ms` : "0ms",
+								background: "linear-gradient(180deg, #FFD4A8 0%, #FFCA99 42%, #FFE8D6 100%)",
 							}}
 						>
-							<div className="text-4xl mb-4">{value.icon}</div>
-							<h3 className="text-2xl font-bold text-gray-900 mb-4">
-								{value.title}
-							</h3>
-							<p className="text-gray-600 leading-relaxed text-lg">
-								{value.description}
+							<div className="text-4xl mb-4">🤗</div>
+							<h3 className="text-2xl font-bold text-gray-900 mb-4">Warmth</h3>
+							<p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium max-w-2xl">
+								We lead with empathy, care, and a human touch in every
+								interaction.
 							</p>
 						</div>
-					))}
-				</div>
-
-				<div
-					className={`mt-16 text-center transition-all duration-300 ease-out ${
-						isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-					}`}
-					style={{
-						transitionDelay: isVisible ? "600ms" : "0ms",
-					}}
-				>
-					<div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 inline-block">
-						<div className="text-4xl mb-4">🤗</div>
-						<h3 className="text-2xl font-bold text-gray-900 mb-4">Warmth</h3>
-						<p className="text-gray-600 leading-relaxed text-lg max-w-2xl">
-							We lead with empathy, care, and a human touch in every
-							interaction.
-						</p>
 					</div>
 				</div>
 			</div>

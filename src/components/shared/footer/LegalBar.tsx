@@ -4,7 +4,7 @@ interface LegalBarProps {
 
 const LegalBar = ({ onNavigate }: LegalBarProps) => {
 	return (
-		<div className="w-full bg-[#F5A855] py-4">
+		<div className="w-full bg-[#F5A855] py-4 pb-6">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
 					<p className="text-sm text-white">
