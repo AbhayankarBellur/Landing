@@ -11,7 +11,7 @@ const BrandSection = () => {
 	};
 
 	return (
-		<div className="col-span-1 md:col-span-1 lg:col-span-1">
+		<div className="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col items-center lg:items-start">
 			<button
 				onClick={handleLogoClick}
 				className="flex items-center mb-2 cursor-pointer hover:opacity-80 transition-opacity"
@@ -22,8 +22,8 @@ const BrandSection = () => {
 					<span className="absolute -top-1 -right-3 text-[10px] font-bold">TM</span>
 				</div>
 			</button>
-			<h3 className="text-sm font-bold text-gray-900 mb-2">Pet Care. Reimagined.</h3>
-			<p className="text-xs text-gray-600">Warmpawz, 2025</p>
+			<h3 className="text-sm font-bold text-gray-900 mb-2 text-center lg:text-left">Pet Care. Reimagined.</h3>
+			<p className="text-xs text-gray-600 text-center lg:text-left">Warmpawz, 2025</p>
 		</div>
 	);
 };

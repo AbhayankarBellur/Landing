@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import loadingVideo from "@/assets/loading.mov";
+import petTrainingImage from "@/assets/pet-training.png";
 import { BREAKPOINTS, ANIMATIONS, VIDEOS } from "@/config/constants";
 
 interface LoadingScreenProps {
@@ -58,6 +59,21 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
     document.body.style.height = '100%';
     document.documentElement.style.overflow = 'hidden';
 
+    // Preload landing page images
+    const preloadImages = () => {
+      const imagesToPreload = [
+        petTrainingImage, // Pet Parent image
+        '/images/service_provider.png' // Service Provider image
+      ];
+
+      imagesToPreload.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+      });
+    };
+
+    preloadImages();
+
     // Detect if device is mobile
     const checkMobile = () => {
       const userAgent = navigator.userAgent.toLowerCase();
@@ -107,7 +123,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   };
 
   // Choose video source based on device type
-  const videoSource = isMobile ? VIDEOS.loading.mobile : VIDEOS.loading.desktop;
+  const videoSource = isMobile ? VIDEOS.loading.mobile : loadingVideo;
 
   return (
     <div 

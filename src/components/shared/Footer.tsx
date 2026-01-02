@@ -112,12 +112,21 @@ const Footer = () => {
 							<p className="text-sm text-gray-600 text-right leading-relaxed">
 								Have questions or need support? We're here to help you and
 								your furry friends.
-						</p>
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</footer>
+		</footer>
+
+			{/* Contact Us Modal */}
+			<ContactModal
+				isOpen={isModalOpen}
+				onClose={() => setIsModalOpen(false)}
+			/>
+
+			{/* Legal Bar */}
+			<LegalBar onNavigate={handleNavigation} />
 		</>
 	);
 };
