@@ -12,7 +12,7 @@ export const COLORS = {
 
 // Gradient Backgrounds
 export const GRADIENTS = {
-  warm: 'linear-gradient(180deg, #FFD4A8 0%, #FFCA99 42%, #FFE8D6 100%)',
+  warm: 'linear-gradient(180deg, #F69052 0%, #FAD3B5 60%, #FFF2E6 100%)',
   brandTinted: 'linear-gradient(180deg, #FFF1E6 0%, #FFF8D6 45%, #FFFFFF 100%)',
   white: '#FFFFFF',
 } as const;

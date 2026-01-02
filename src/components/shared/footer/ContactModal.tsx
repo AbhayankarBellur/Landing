@@ -251,7 +251,7 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 						<h2 className="text-xl font-bold text-gray-900">Contact Us</h2>
 						<button
 							onClick={handleClose}
-							className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:ring-offset-1"
+							className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-[#f69052] focus:ring-offset-1"
 							aria-label="Close modal"
 						>
 							<svg
@@ -307,7 +307,7 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 									placeholder="Ex: Sparky Singh"
 									required
 									disabled={isSubmitting}
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
+									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#f69052] focus:border-transparent transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
 									style={{ minHeight: "48px" }}
 								/>
 							</div>
@@ -328,7 +328,7 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 									placeholder="Sparky@gmail.com"
 									required
 									disabled={isSubmitting}
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
+									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#f69052] focus:border-transparent transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
 									style={{ minHeight: "48px" }}
 								/>
 							</div>
@@ -348,7 +348,7 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 									onChange={handleInputChange}
 									placeholder="+91 9876 54321"
 									disabled={isSubmitting}
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
+									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#f69052] focus:border-transparent transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
 									style={{ minHeight: "48px" }}
 								/>
 							</div>
@@ -366,7 +366,7 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 									value={formData.userType}
 									onChange={handleInputChange}
 									disabled={isSubmitting}
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
+									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#f69052] focus:border-transparent transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
 									style={{ minHeight: "48px" }}
 								>
 									<option value="">Select user type</option>
@@ -391,7 +391,7 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 									rows={3}
 									required
 									disabled={isSubmitting}
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:border-transparent resize-none transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
+									className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#f69052] focus:border-transparent resize-none transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
 									style={{ minHeight: "80px" }}
 								/>
 							</div>
@@ -410,7 +410,7 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 								<button
 									type="submit"
 									disabled={isSubmitting}
-									className="flex-1 bg-[#F5A855] text-white px-4 py-3 rounded-lg text-sm font-medium hover:bg-[#E09642] transition-colors focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed"
+								className="flex-1 bg-[#f69052] text-white px-4 py-3 rounded-lg text-sm font-medium hover:bg-[#E09642] transition-colors focus:outline-none focus:ring-2 focus:ring-[#f69052] focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed"
 									style={{ minHeight: "48px" }}
 								>
 									{isSubmitting ? "Sending..." : "Submit"}

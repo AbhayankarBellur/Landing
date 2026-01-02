@@ -1,25 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 const Values = () => {
 	const sectionRef = useRef<HTMLElement>(null);
-	const [isVisible, setIsVisible] = useState(false);
-
-	useEffect(() => {
-		const observer = new IntersectionObserver(
-			([entry]) => {
-				if (entry.isIntersecting && !isVisible) {
-					setIsVisible(true);
-				}
-			},
-			{ threshold: 0.2, rootMargin: "-50px" }
-		);
-
-		if (sectionRef.current) {
-			observer.observe(sectionRef.current);
-		}
-
-		return () => observer.disconnect();
-	}, [isVisible]);
 
 	const values = [
 		{
@@ -52,14 +34,10 @@ const Values = () => {
 		<section
 			id="values"
 			ref={sectionRef}
-			className="py-20 px-4 sm:px-6 lg:px-8"
+			className="py-16 px-4 sm:px-6 lg:px-8"
 		>
 			<div className="max-w-6xl mx-auto">
-				<div
-					className={`bg-white rounded-3xl p-8 md:p-12 shadow-lg border-2 border-[#F5A855] transition-all duration-300 ease-out ${
-						isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-					}`}
-				>
+				<div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg border-2 border-[#F5A855]">
 					{/* Header inside the box */}
 					<div className="text-center mb-12">
 						<h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -73,14 +51,9 @@ const Values = () => {
 						{values.map((value, index) => (
 							<div
 								key={index}
-								className={`group rounded-2xl p-8 border-2 border-gray-200 hover:border-[#F5A855] hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-out ${
-									isVisible
-										? "opacity-100 translate-y-0"
-										: "opacity-0 translate-y-8"
-								}`}
+								className="group rounded-2xl p-8 border-2 border-gray-200 hover:border-[#F5A855] hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-out"
 								style={{
-									background: "linear-gradient(180deg, #FFD4A8 0%, #FFCA99 42%, #FFE8D6 100%)",
-									transitionDelay: isVisible ? `${index * 120}ms` : "0ms",
+									background: "linear-gradient(180deg, #F69052 0%, #FAD3B5 60%, #FFF2E6 100%)",
 								}}
 							>
 								<div className="text-4xl mb-4">{value.icon}</div>
@@ -95,18 +68,11 @@ const Values = () => {
 					</div>
 
 					{/* Warmth value centered at bottom */}
-					<div
-						className={`mt-8 text-center transition-all duration-300 ease-out ${
-							isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-						}`}
-						style={{
-							transitionDelay: isVisible ? "600ms" : "0ms",
-						}}
-					>
+					<div className="mt-8 text-center">
 						<div 
 							className="rounded-2xl p-8 border-2 border-gray-200 inline-block hover:border-[#F5A855] hover:shadow-md transition-all duration-300"
 							style={{
-								background: "linear-gradient(180deg, #FFD4A8 0%, #FFCA99 42%, #FFE8D6 100%)",
+								background: "linear-gradient(180deg, #F69052 0%, #FAD3B5 60%, #FFF2E6 100%)",
 							}}
 						>
 							<div className="text-4xl mb-4">🤗</div>

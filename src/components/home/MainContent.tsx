@@ -55,7 +55,7 @@ const MainContent = ({ isVisible }: MainContentProps) => {
 			}`}
 			style={{
 				background:
-					"linear-gradient(180deg, #FFD4A8 0%, #FFCA99 42%, #FFE8D6 100%)",
+				"linear-gradient(180deg, #F69052 0%, #FAD3B5 60%, #FFF2E6 100%)",
 				backgroundRepeat: "no-repeat",
 				backgroundAttachment: "fixed",
 				transition: "background 0.3s ease-in-out",

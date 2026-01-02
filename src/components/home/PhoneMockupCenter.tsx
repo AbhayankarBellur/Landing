@@ -67,8 +67,8 @@ const PhoneMockupCenter = forwardRef<HTMLDivElement, PhoneMockupCenterProps>(
 						<p
 							className={
 								isMobile
-									? "text-xs sm:text-sm font-semibold text-[#F5A855]"
-									: "text-[10px] xl:text-xs font-semibold text-[#F5A855]"
+									? "text-xs sm:text-sm font-semibold text-[#f69052]"
+									: "text-[10px] xl:text-xs font-semibold text-[#f69052]"
 							}
 						>
 							Download Now

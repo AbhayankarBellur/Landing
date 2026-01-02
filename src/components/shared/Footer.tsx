@@ -12,93 +12,112 @@ const Footer = () => {
 
 	const handleNavigation = (path: string) => {
 		navigate(path);
+		// Scroll to top of page
+		window.scrollTo(0, 0);
 	};
 
 	return (
 		<>
 			{/* Thin orange separator line between body and footer */}
-			<div className="w-full h-px bg-[#F5A855]" />
+			<div className="w-full h-px bg-[#f69052]" />
 
 			<footer className="bg-white pt-8 pb-4 px-4 sm:px-6 lg:px-8">
 				<div className="max-w-7xl mx-auto">
-					<div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-12 pb-4">
-						{/* Brand Section */}
-						<BrandSection />
-
-						{/* Policies Section */}
-						<div className="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col items-center lg:items-start">
-							<h4 className="text-base font-semibold text-gray-900 mb-2 mt-[4.5rem] lg:mt-0">
-								Policies
-							</h4>
-							<div className="space-y-1 flex flex-col items-center lg:items-start mb-6">
-								<button
-									onClick={() => handleNavigation("/policies")}
-									className="block text-xs text-gray-600 hover:text-[#F5A855] transition-colors text-center lg:text-left"
-								>
-									Privacy
-								</button>
-								<button
-									onClick={() => handleNavigation("/policies")}
-									className="block text-xs text-gray-600 hover:text-[#F5A855] transition-colors text-center lg:text-left"
-								>
-									Security
-								</button>
-							</div>
-							
-							<button
-								onClick={() => handleNavigation("/careers")}
-								className="text-base font-semibold text-gray-900 hover:text-[#F5A855] transition-colors text-center lg:text-left block"
-							>
-								Careers
-							</button>
-						</div>
-
-						{/* About Us Section */}
-						<div className="col-span-1 md:col-span-1 lg:col-span-1">
+				{/* Mobile Layout - Compact */}
+				<div className="lg:hidden">
+					{/* Top row: About Us (left) and Policies/Careers (right) flanking Contact button */}
+					<div className="flex items-start justify-between mb-6">
+						{/* Left: About Us + Social */}
+						<div className="flex-1">
 							<button
 								onClick={() => handleNavigation("/about")}
-								className="text-base font-semibold text-gray-900 hover:text-[#F5A855] transition-colors text-left block mb-4"
+								className="text-base font-semibold text-gray-900 hover:text-[#f69052] transition-colors text-left block mb-3"
 							>
 								About Us
 							</button>
 							<SocialMediaLinks />
 						</div>
 
-						{/* Get the App Section */}
-						<div className="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col items-center">
-							<h4 className="text-base font-semibold text-gray-900 mb-2">
-								Get the app
-							</h4>
-							<AppDownloadLinks onNavigate={handleNavigation} />
+						{/* Center: Contact Us Button + Brand Section below it */}
+						<div className="flex-shrink-0 mx-4 flex flex-col items-center">
+							<button
+								onClick={() => setIsModalOpen(true)}
+								className="bg-[#f69052] text-white px-6 py-2.5 rounded-lg text-base font-semibold hover:bg-[#E09642] transition-colors focus:outline-none focus:ring-2 focus:ring-[#f69052] focus:ring-offset-2 shadow-sm hover:shadow-md whitespace-nowrap mb-4"
+							>
+								Contact Us
+							</button>
+							<BrandSection />
 						</div>
 
-						{/* Contact Us Section */}
-						<div className="col-span-2 md:col-span-2 lg:col-span-1 flex flex-col items-center lg:items-end mt-4 md:mt-0">
-							<div className="w-full lg:w-auto flex flex-col items-center lg:items-end">
-								<button
-									onClick={() => setIsModalOpen(true)}
-									className="bg-[#F5A855] text-white px-6 py-2.5 rounded-lg text-base font-semibold hover:bg-[#E09642] transition-colors focus:outline-none focus:ring-2 focus:ring-[#F5A855] focus:ring-offset-2 shadow-sm hover:shadow-md mb-3"
-								>
-									Contact Us
-								</button>
-								<p className="text-sm text-gray-600 text-center lg:text-right leading-relaxed">
-									Have questions or need support? We're here to help you and
-									your furry friends.
-								</p>
-							</div>
+						{/* Right: Policies + Careers */}
+						<div className="flex-1 flex flex-col items-end">
+							<button
+								onClick={() => handleNavigation("/policies")}
+								className="text-base font-semibold text-gray-900 hover:text-[#f69052] transition-colors text-right block mb-3"
+							>
+								Policies
+							</button>
+							<button
+								onClick={() => handleNavigation("/careers")}
+								className="text-base font-semibold text-gray-900 hover:text-[#f69052] transition-colors text-right block"
+							>
+								Careers
+							</button>
 						</div>
 					</div>
 				</div>
-			</footer>
 
-			{/* Contact Us Modal */}
-			<ContactModal
-				isOpen={isModalOpen}
-				onClose={() => setIsModalOpen(false)}
-			/>
+				{/* Desktop Layout - Original */}
+				<div className="hidden lg:grid lg:grid-cols-4 gap-6 lg:gap-12 pb-4">
+					{/* Brand Section */}
+					<BrandSection />
 
-			{/* Legal Bar */}
-			<LegalBar onNavigate={handleNavigation} />
+					{/* Policies Section */}
+					<div className="col-span-1 flex flex-col items-start">
+						<button
+							onClick={() => handleNavigation("/policies")}
+							className="text-base font-semibold text-gray-900 hover:text-[#f69052] transition-colors text-left block mb-6"
+						>
+							Policies
+						</button>
+						
+						<button
+							onClick={() => handleNavigation("/careers")}
+							className="text-base font-semibold text-gray-900 hover:text-[#f69052] transition-colors text-left block"
+						>
+							Careers
+						</button>
+					</div>
+
+					{/* About Us Section */}
+					<div className="col-span-1">
+						<button
+							onClick={() => handleNavigation("/about")}
+							className="text-base font-semibold text-gray-900 hover:text-[#f69052] transition-colors text-left block mb-4"
+						>
+							About Us
+						</button>
+						<SocialMediaLinks />
+					</div>
+
+					{/* Contact Us Section */}
+					<div className="col-span-1 flex flex-col items-end">
+						<div className="w-full lg:w-auto flex flex-col items-end">
+							<button
+								onClick={() => setIsModalOpen(true)}
+								className="bg-[#f69052] text-white px-6 py-2.5 rounded-lg text-base font-semibold hover:bg-[#E09642] transition-colors focus:outline-none focus:ring-2 focus:ring-[#f69052] focus:ring-offset-2 shadow-sm hover:shadow-md mb-3"
+							>
+								Contact Us
+							</button>
+							<p className="text-sm text-gray-600 text-right leading-relaxed">
+								Have questions or need support? We're here to help you and
+								your furry friends.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
 		</>
 	);
 };

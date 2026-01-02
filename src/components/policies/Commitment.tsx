@@ -22,7 +22,7 @@ const Commitment = () => {
 								key={index}
 								className="flex items-start gap-3 text-xl md:text-2xl text-gray-700 leading-relaxed font-medium"
 							>
-								<span className="text-[#F5A855] mt-1">•</span>
+								<span className="text-[#f69052] mt-1">•</span>
 								<span>{commitment}</span>
 							</li>
 						))}

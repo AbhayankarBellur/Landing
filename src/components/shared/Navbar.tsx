@@ -12,6 +12,8 @@ const Navbar = () => {
 
 	const handleNavigation = (path: string) => {
 		navigate(path);
+		// Scroll to top of page
+		window.scrollTo(0, 0);
 		// Close mobile menu after navigation
 		setIsMobileMenuOpen(false);
 	};
@@ -93,18 +95,18 @@ const Navbar = () => {
 						<div className="flex-shrink-0">
 							<button
 								onClick={() => handleNavigation("/")}
-								className="flex items-center hover:opacity-80 transition-opacity"
-							>
-								<img
-									src={warmpawzLogo}
-									alt="Warmpawz"
-									className="h-16 w-auto"
-								/>
-								<span className="text-xs font-semibold align-super ml-0.5">
-									TM
-								</span>
-							</button>
-						</div>
+							className="flex items-center hover:opacity-80 transition-opacity relative"
+						>
+							<img
+								src={warmpawzLogo}
+								alt="Warmpawz"
+								className="h-16 w-auto"
+							/>
+							<span className="absolute -top-1 -right-3 text-[10px] font-bold">
+								TM
+							</span>
+						</button>
+					</div>
 
 						{/* Center Navigation Links */}
 						<div className="hidden md:flex items-center space-x-8">
@@ -112,8 +114,8 @@ const Navbar = () => {
 								onClick={() => handleNavigation("/services")}
 								className={`px-4 py-2 text-sm font-semibold transition-colors ${
 									isActive("/services")
-										? "text-[#F5A855]"
-										: "text-gray-700 hover:text-[#F5A855]"
+										? "text-[#f69052]"
+										: "text-gray-700 hover:text-[#f69052]"
 								}`}
 							>
 								SERVICES
@@ -122,8 +124,8 @@ const Navbar = () => {
 								onClick={() => handleNavigation("/blog")}
 								className={`px-4 py-2 text-sm font-semibold transition-colors ${
 									isActive("/blog")
-										? "text-[#F5A855]"
-										: "text-gray-700 hover:text-[#F5A855]"
+										? "text-[#f69052]"
+										: "text-gray-700 hover:text-[#f69052]"
 								}`}
 							>
 								BLOG
@@ -132,8 +134,8 @@ const Navbar = () => {
 								onClick={() => handleNavigation("/news-events")}
 								className={`px-4 py-2 text-sm font-semibold transition-colors ${
 									isActive("/news-events")
-										? "text-[#F5A855]"
-										: "text-gray-700 hover:text-[#F5A855]"
+										? "text-[#f69052]"
+										: "text-gray-700 hover:text-[#f69052]"
 								}`}
 							>
 								NEWS & EVENTS
@@ -229,8 +231,8 @@ const Navbar = () => {
 							onClick={() => handleNavigation("/services")}
 							className={`block w-full text-left px-4 py-4 rounded-lg text-lg font-semibold transition-colors ${
 								isActive("/services")
-									? "text-[#F5A855] bg-[#F5A855]/10"
-									: "text-gray-700 hover:text-[#F5A855] hover:bg-gray-50"
+									? "text-[#f69052] bg-[#F5A855]/10"
+									: "text-gray-700 hover:text-[#f69052] hover:bg-gray-50"
 							}`}
 						>
 							SERVICES
@@ -239,8 +241,8 @@ const Navbar = () => {
 							onClick={() => handleNavigation("/blog")}
 							className={`block w-full text-left px-4 py-4 rounded-lg text-lg font-semibold transition-colors ${
 								isActive("/blog")
-									? "text-[#F5A855] bg-[#F5A855]/10"
-									: "text-gray-700 hover:text-[#F5A855] hover:bg-gray-50"
+									? "text-[#f69052] bg-[#F5A855]/10"
+									: "text-gray-700 hover:text-[#f69052] hover:bg-gray-50"
 							}`}
 						>
 							BLOG
@@ -249,8 +251,8 @@ const Navbar = () => {
 							onClick={() => handleNavigation("/news-events")}
 							className={`block w-full text-left px-4 py-4 rounded-lg text-lg font-semibold transition-colors ${
 								isActive("/news-events")
-									? "text-[#F5A855] bg-[#F5A855]/10"
-									: "text-gray-700 hover:text-[#F5A855] hover:bg-gray-50"
+									? "text-[#f69052] bg-[#F5A855]/10"
+									: "text-gray-700 hover:text-[#f69052] hover:bg-gray-50"
 							}`}
 						>
 							NEWS & EVENTS

@@ -115,26 +115,28 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
       style={{ transitionDelay: "0.1s" }}
     >
       {videoSrc && (
-        <video
-          ref={videoRef}
-          src={videoSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          controls={false}
-          controlsList="nodownload nofullscreen noremoteplayback"
-          disablePictureInPicture
-          disableRemotePlayback
-          webkit-playsinline="true"
-          x5-playsinline="true"
-          x5-video-player-type="h5"
-          x5-video-player-fullscreen="false"
-          className="w-[220px] h-[450px] sm:w-[280px] sm:h-[570px] object-contain video-no-controls bg-transparent rounded-[56px]"
-          onContextMenu={(e) => e.preventDefault()}
-          onDoubleClick={(e) => e.preventDefault()}
-        />
+        <div className="relative w-[220px] h-[450px] sm:w-[280px] sm:h-[570px] rounded-[48px] overflow-hidden">
+          <video
+            ref={videoRef}
+            src={videoSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            controls={false}
+            controlsList="nodownload nofullscreen noremoteplayback"
+            disablePictureInPicture
+            disableRemotePlayback
+            webkit-playsinline="true"
+            x5-playsinline="true"
+            x5-video-player-type="h5"
+            x5-video-player-fullscreen="false"
+            className="w-full h-full object-cover video-no-controls bg-transparent"
+            onContextMenu={(e) => e.preventDefault()}
+            onDoubleClick={(e) => e.preventDefault()}
+          />
+        </div>
       )}
     </div>
   );

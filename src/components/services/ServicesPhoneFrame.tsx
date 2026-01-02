@@ -120,14 +120,14 @@ const ServicesPhoneFrame = () => {
 				<div 
 					className="relative rounded-[2rem] overflow-hidden w-full h-full"
 					style={{
-						background: "linear-gradient(180deg, #FFD4A8 0%, #FFCA99 42%, #FFE8D6 100%)",
-					}}
-				>
-					{/* Dynamic Island / Notch */}
-					<div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-gray-900 rounded-full z-20" />
+					background: "linear-gradient(180deg, #F69052 0%, #FAD3B5 60%, #FFF2E6 100%)",
+				}}
+			>
+				{/* Dynamic Island / Notch */}
+				<div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-gray-900 rounded-full z-20" />
 
-					{/* Content Area */}
-					<div className="relative w-full h-full pt-8 px-3">
+				{/* Content Area */}
+				<div className="relative w-full h-full pt-8 px-3">
 						<div
 							className={`transition-opacity duration-300 h-full ${
 								isTransitioning ? "opacity-0" : "opacity-100"

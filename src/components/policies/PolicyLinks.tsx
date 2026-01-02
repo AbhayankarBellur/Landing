@@ -48,7 +48,7 @@ const PolicyLinks = () => {
 							</p>
 							<a
 								href={policy.link}
-								className="inline-flex items-center text-[#F5A855] font-semibold hover:text-[#E09642] transition-colors"
+								className="inline-flex items-center text-[#f69052] font-semibold hover:text-[#E09642] transition-colors"
 							>
 								Read Full Document →
 							</a>
