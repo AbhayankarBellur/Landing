@@ -85,10 +85,20 @@
 		-moz-osx-font-smoothing: grayscale;
 		scrollbar-width: none;
 		-ms-overflow-style: none;
+		min-height: 100vh;
+		min-height: 100dvh;
 	}
 
 	body::-webkit-scrollbar {
 		display: none;
+	}
+
+	/* Prevent scroll bounce on iOS */
+	body.scroll-lock {
+		overflow: hidden !important;
+		position: fixed !important;
+		width: 100% !important;
+		height: 100% !important;
 	}
 }
 

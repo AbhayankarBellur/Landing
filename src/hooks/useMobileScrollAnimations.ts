@@ -4,12 +4,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface UseMobileScrollAnimationsProps {
 	mobileParentImageRef: RefObject<HTMLDivElement>;
+	mobileParentButtonRef: RefObject<HTMLButtonElement>;
 	mobileProviderImageRef: RefObject<HTMLDivElement>;
 	mobilePhoneRef: RefObject<HTMLDivElement>;
 }
 
 export const useMobileScrollAnimations = ({
 	mobileParentImageRef,
+	mobileParentButtonRef,
 	mobileProviderImageRef,
 	mobilePhoneRef,
 }: UseMobileScrollAnimationsProps) => {
@@ -21,23 +23,42 @@ export const useMobileScrollAnimations = ({
 
 		// Only apply on mobile/tablet (below lg breakpoint)
 		mm.add("(max-width: 1023px)", () => {
+			// Pet Parent Section - START big at top, scale DOWN as you scroll away
 			if (mobileParentImageRef.current) {
 				gsap.fromTo(
 					mobileParentImageRef.current,
-					{ scale: 0.8, opacity: 0.6 },
+					{ scale: 1.3 }, // Start big
 					{
-						scale: 1.2,
-						opacity: 1,
+						scale: 0.8, // End small
 						scrollTrigger: {
 							trigger: mobileParentImageRef.current,
-							start: "top 80%",
-							end: "center center",
-							scrub: 1,
+							start: "top top", // Start when element reaches top
+							end: "bottom top", // End when bottom of element reaches top
+							scrub: true,
+							// markers: true, // Uncomment for debugging
 						},
 					}
 				);
 			}
 
+			// Pet Parent Button - Synced with image animation
+			if (mobileParentButtonRef.current) {
+				gsap.fromTo(
+					mobileParentButtonRef.current,
+					{ scale: 1.15 },
+					{
+						scale: 0.85,
+						scrollTrigger: {
+							trigger: mobileParentImageRef.current,
+							start: "top top",
+							end: "bottom top",
+							scrub: true,
+						},
+					}
+				);
+			}
+
+			// Phone Section - Scale UP when scrolling into view (like before)
 			if (mobilePhoneRef.current) {
 				gsap.fromTo(
 					mobilePhoneRef.current,
@@ -55,6 +76,7 @@ export const useMobileScrollAnimations = ({
 				);
 			}
 
+			// Service Provider Section - Scale UP when scrolling into view (like before)
 			if (mobileProviderImageRef.current) {
 				gsap.fromTo(
 					mobileProviderImageRef.current,
@@ -76,5 +98,5 @@ export const useMobileScrollAnimations = ({
 		return () => {
 			mm.revert();
 		};
-	}, [mobileParentImageRef, mobileProviderImageRef, mobilePhoneRef]);
+	}, [mobileParentImageRef, mobileParentButtonRef, mobileProviderImageRef, mobilePhoneRef]);
 };

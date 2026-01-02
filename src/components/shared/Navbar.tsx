@@ -10,8 +10,6 @@ const Navbar = () => {
 	const [lastScrollY, setLastScrollY] = useState(0);
 
 	const handleNavigation = (path: string) => {
-		// Mark that user has navigated within the session
-		sessionStorage.setItem("hasNavigated", "true");
 		navigate(path);
 		// Close mobile menu after navigation
 		setIsMobileMenuOpen(false);
@@ -34,13 +32,13 @@ const Navbar = () => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
 
-			if (currentScrollY < 10) {
-				// Always show at top
+			if (currentScrollY < 50) {
+				// Always show at top with larger threshold
 				setIsVisible(true);
-			} else if (currentScrollY > lastScrollY) {
-				// Scrolling down - hide navbar
+			} else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+				// Scrolling down - hide navbar (only after scrolling past 100px)
 				setIsVisible(false);
-			} else {
+			} else if (currentScrollY < lastScrollY) {
 				// Scrolling up - show navbar
 				setIsVisible(true);
 			}
@@ -48,10 +46,22 @@ const Navbar = () => {
 			setLastScrollY(currentScrollY);
 		};
 
-		window.addEventListener("scroll", handleScroll, { passive: true });
+		// Debounce scroll events for smoother performance
+		let ticking = false;
+		const debouncedHandleScroll = () => {
+			if (!ticking) {
+				window.requestAnimationFrame(() => {
+					handleScroll();
+					ticking = false;
+				});
+				ticking = true;
+			}
+		};
+
+		window.addEventListener("scroll", debouncedHandleScroll, { passive: true });
 
 		return () => {
-			window.removeEventListener("scroll", handleScroll);
+			window.removeEventListener("scroll", debouncedHandleScroll);
 		};
 	}, [lastScrollY]);
 

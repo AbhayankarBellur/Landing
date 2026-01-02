@@ -65,12 +65,14 @@ const PhoneMockup: FC<PhoneMockupProps> = ({ videoSrc, isLeft }) => {
     video.addEventListener('ended', handleVideoEnd);
     video.addEventListener('pause', handleVideoPause);
 
-    // Aggressive playback monitoring - check every 500ms
-    const playbackInterval = setInterval(() => {
-      if (video.paused) {
+    // Use Page Visibility API to resume playback when page becomes visible
+    const handleVisibilityChange = () => {
+      if (!document.hidden && video.paused) {
         video.play().catch(console.error);
       }
-    }, 500);
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // Initial play attempt
     if (video.readyState >= 2) {
@@ -78,7 +80,7 @@ const PhoneMockup: FC<PhoneMockupProps> = ({ videoSrc, isLeft }) => {
     }
 
     return () => {
-      clearInterval(playbackInterval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       video.removeEventListener('loadeddata', handleVideoLoad);
       video.removeEventListener('canplay', handleVideoLoad);
       video.removeEventListener('ended', handleVideoEnd);

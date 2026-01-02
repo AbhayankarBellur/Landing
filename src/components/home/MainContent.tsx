@@ -22,13 +22,12 @@ const MainContent = ({ isVisible }: MainContentProps) => {
 	const petParentButtonRef = useRef<HTMLButtonElement>(null);
 	const serviceProviderButtonRef = useRef<HTMLButtonElement>(null);
 	const mobileParentImageRef = useRef<HTMLDivElement>(null);
+	const mobileParentButtonRef = useRef<HTMLButtonElement>(null);
 	const mobileProviderImageRef = useRef<HTMLDivElement>(null);
 	const centerPhoneRef = useRef<HTMLDivElement>(null);
 	const mobilePhoneRef = useRef<HTMLDivElement>(null);
 
 	const handleNavigation = (path: string) => {
-		// Mark that user has navigated within the session
-		sessionStorage.setItem("hasNavigated", "true");
 		navigate(path);
 	};
 
@@ -44,6 +43,7 @@ const MainContent = ({ isVisible }: MainContentProps) => {
 
 	useMobileScrollAnimations({
 		mobileParentImageRef,
+		mobileParentButtonRef,
 		mobileProviderImageRef,
 		mobilePhoneRef,
 	});
@@ -70,11 +70,12 @@ const MainContent = ({ isVisible }: MainContentProps) => {
 					navigateTo="/user-walkthrough"
 					onNavigate={handleNavigation}
 					imageRef={mobileParentImageRef}
-					className="mb-6 sm:mb-8"
+					buttonRef={mobileParentButtonRef}
+					className="mb-16 sm:mb-20"
 				/>
 
 				{/* Center Mobile Frame with Warmpawz Heading */}
-				<div className="flex flex-col items-center mb-4 sm:mb-6">
+				<div className="flex flex-col items-center mb-8 sm:mb-10">
 					<PhoneMockupCenter ref={mobilePhoneRef} variant="mobile" />
 				</div>
 

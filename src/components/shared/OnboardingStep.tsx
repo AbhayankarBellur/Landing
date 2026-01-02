@@ -81,12 +81,14 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
     video.addEventListener('pause', handleVideoPause);
     video.addEventListener('error', handleVideoError);
 
-    // Aggressive playback monitoring - check every 500ms
-    const playbackInterval = setInterval(() => {
-      if (video.paused) {
+    // Use Page Visibility API to resume playback when page becomes visible
+    const handleVisibilityChange = () => {
+      if (!document.hidden && video.paused) {
         video.play().catch(console.error);
       }
-    }, 500);
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // Initial play attempt
     if (video.readyState >= 2) {
@@ -94,7 +96,7 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
     }
 
     return () => {
-      clearInterval(playbackInterval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       video.removeEventListener('loadeddata', handleVideoLoad);
       video.removeEventListener('canplay', handleVideoLoad);
       video.removeEventListener('timeupdate', handleTimeUpdate);
@@ -137,37 +139,37 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
     </div>
   );
 
-  // Text content with alternating colors and orange border
-  const textContent = (
-    <div
-      className={`flex-1 max-w-md text-center md:text-left ${
-        isReversed ? "md:text-right" : ""
-      } transition-all duration-700 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      }`}
-      style={{ transitionDelay: "0.3s" }}
-    >
-      <span className="text-black font-bold text-lg">Step {stepNumber}</span>
-      <h3 className="text-2xl md:text-3xl font-bold text-black mt-2 mb-4">
-        {title}
-      </h3>
-      
-      {/* Description with Orange Border */}
-      <div className="border-2 border-[#F5A855] rounded-2xl p-4 sm:p-6 bg-white shadow-sm">
-        <p className="text-lg leading-relaxed text-foreground/80">{description}</p>
-      </div>
-    </div>
-  );
-
   return (
     <div
       ref={stepRef}
-      className={`flex flex-col md:flex-row items-center gap-8 md:gap-16 ${
-        isReversed ? "md:flex-row-reverse" : ""
-      }`}
+      className="flex flex-col items-center gap-6"
     >
+      {/* Step number and title at the top */}
+      <div
+        className={`text-center transition-all duration-700 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}
+      >
+        <span className="text-black font-bold text-lg">Step {stepNumber}</span>
+        <h3 className="text-2xl md:text-3xl font-bold text-black mt-2">
+          {title}
+        </h3>
+      </div>
+
+      {/* Video in the middle */}
       {videoContent}
-      {textContent}
+
+      {/* Description below video */}
+      <div
+        className={`w-full max-w-2xl transition-all duration-700 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}
+        style={{ transitionDelay: "0.3s" }}
+      >
+        <div className="border-2 border-[#F5A855] rounded-2xl p-4 sm:p-6 bg-white shadow-sm">
+          <p className="text-lg leading-relaxed text-foreground/80 text-center">{description}</p>
+        </div>
+      </div>
     </div>
   );
 };

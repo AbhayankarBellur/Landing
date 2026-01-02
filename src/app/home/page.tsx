@@ -1,27 +1,36 @@
 import { useState, useEffect } from "react";
 import { LoadingScreen, MainContent } from "@/components/home";
 import { Navbar, Footer } from "@/components/shared";
+import { useVideoPreloader } from "@/hooks/useVideoPreloader";
 
 const HomePage = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [showContent, setShowContent] = useState(false);
 
-	useEffect(() => {
-		// Check if this is a fresh page load (refresh) or navigation
-		// sessionStorage persists during the browser session but clears on new tabs/refresh
-		const hasNavigated = sessionStorage.getItem("hasNavigated");
+	// Start preloading videos after content is shown
+	useVideoPreloader(showContent);
 
-		if (!hasNavigated) {
-			// This is a fresh page load/refresh - show loading animation
-			setIsLoading(true);
-			setShowContent(false);
-			// Mark that we've now navigated within the session
-			sessionStorage.setItem("hasNavigated", "true");
-		} else {
-			// This is navigation from another page - skip loading animation
+	useEffect(() => {
+		// Check if user came from internal navigation or external source
+		const referrer = document.referrer;
+		const currentDomain = window.location.origin;
+		const isFromExternalSite = !referrer || !referrer.startsWith(currentDomain);
+		
+		// Also check internal navigation flag as fallback
+		const isInternalNavigation = sessionStorage.getItem("internalNavigation");
+
+		if (isInternalNavigation === "true" && !isFromExternalSite) {
+			// User navigated within the site - skip loading animation
 			setIsLoading(false);
 			setShowContent(true);
+		} else {
+			// User came from external URL, new tab, or directly typed URL - show loading animation
+			setIsLoading(true);
+			setShowContent(false);
 		}
+
+		// Set flag to indicate user is now navigating within the site
+		sessionStorage.setItem("internalNavigation", "true");
 	}, []);
 
 	const handleLoadingComplete = () => {

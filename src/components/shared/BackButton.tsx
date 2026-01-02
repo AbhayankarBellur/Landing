@@ -10,8 +10,6 @@ const BackButton = ({ className }: BackButtonProps) => {
   const navigate = useNavigate();
 
   const handleBackToHome = () => {
-    // Mark that user has navigated within the session
-    sessionStorage.setItem('hasNavigated', 'true');
     navigate("/");
   };
 

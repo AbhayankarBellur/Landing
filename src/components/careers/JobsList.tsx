@@ -7,7 +7,7 @@ const JobsList = () => {
 
 	return (
 		<section className="py-20 px-4 sm:px-6 lg:px-8">
-			<div className="max-w-4xl mx-auto">
+			<div className="max-w-6xl mx-auto">
 				<div className="text-center mb-12">
 					<h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
 						Open Roles
@@ -17,7 +17,7 @@ const JobsList = () => {
 					</p>
 				</div>
 
-				<div className="space-y-6">
+				<div className="space-y-6 max-w-4xl mx-auto">
 					{jobs.map((job) => (
 						<JobCard
 							key={job.id}

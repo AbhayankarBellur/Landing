@@ -11,7 +11,6 @@ const Footer = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const handleNavigation = (path: string) => {
-		sessionStorage.setItem("hasNavigated", "true");
 		navigate(path);
 	};
 
