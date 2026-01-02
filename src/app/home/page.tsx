@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { LoadingScreen, MainContent } from "@/components/home";
 import { Navbar, Footer } from "@/components/shared";
 import { useVideoPreloader } from "@/hooks/useVideoPreloader";
+import { STORAGE_KEYS } from "@/config/constants";
 
 const HomePage = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -11,41 +12,42 @@ const HomePage = () => {
 	useVideoPreloader(showContent);
 
 	useEffect(() => {
-		// Check if user came from internal navigation or external source
-		const referrer = document.referrer;
-		const currentDomain = window.location.origin;
-		const isFromExternalSite = !referrer || !referrer.startsWith(currentDomain);
-		
-		// Also check internal navigation flag as fallback
-		const isInternalNavigation = sessionStorage.getItem("internalNavigation");
+		// Check if loading animation has already been shown this session
+		const hasShownLoading = sessionStorage.getItem(STORAGE_KEYS.hasShownLoading);
 
-		if (isInternalNavigation === "true" && !isFromExternalSite) {
-			// User navigated within the site - skip loading animation
+		if (hasShownLoading === "true") {
+			// Animation already shown - skip it
 			setIsLoading(false);
 			setShowContent(true);
 		} else {
-			// User came from external URL, new tab, or directly typed URL - show loading animation
+			// First visit this session - show loading animation
 			setIsLoading(true);
 			setShowContent(false);
+			// Mark that we've shown the loading animation
+			sessionStorage.setItem(STORAGE_KEYS.hasShownLoading, "true");
 		}
-
-		// Set flag to indicate user is now navigating within the site
-		sessionStorage.setItem("internalNavigation", "true");
 	}, []);
 
 	const handleLoadingComplete = () => {
 		setIsLoading(false);
-		setShowContent(true);
+		// Small delay to ensure smooth transition
+		setTimeout(() => {
+			setShowContent(true);
+		}, 50);
 	};
 
 	return (
 		<>
 			{/* Show navbar only when content is visible (not during loading) */}
 			{showContent && <Navbar />}
+			{/* Loading screen overlays the content */}
 			{isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
-			<main className="min-h-screen bg-white relative overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-				<MainContent isVisible={showContent} />
-			</main>
+			{/* Render main content only when needed */}
+			{!isLoading && (
+				<main className="min-h-screen bg-white relative overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+					<MainContent isVisible={showContent} />
+				</main>
+			)}
 			{showContent && <Footer />}
 		</>
 	);

@@ -6,7 +6,8 @@ import {
 	StagesList,
 	FAQSection,
 } from "@/components/user-walkthrough";
-import { BackButton, Navbar, Footer } from "@/components/shared";
+import { BackButton } from "@/components/shared";
+import { MainLayout, PageLayout } from "@/layouts";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,27 +47,14 @@ const UserWalkthroughPage = () => {
 	}, []);
 
 	return (
-		<>
-			<Navbar />
-			<main
-				className="relative font-body"
-				style={{
-					background:
-						"linear-gradient(180deg, #FFD4A8 0%, #FFCA99 42%, #FFE8D6 100%)",
-					backgroundRepeat: "no-repeat",
-					backgroundAttachment: "fixed",
-					transition: "background 0.3s ease-in-out",
-				}}
-			>
-				<div className="pt-32">
-					<BackButton className="bg-secondary border-border hover:bg-muted text-foreground" />
-					<HeroSection />
-					<StagesList />
-					<FAQSection />
-				</div>
-			</main>
-			<Footer />
-		</>
+		<MainLayout>
+			<PageLayout gradient="warm" className="font-body">
+				<BackButton className="bg-secondary border-border hover:bg-muted text-foreground" />
+				<HeroSection />
+				<StagesList />
+				<FAQSection />
+			</PageLayout>
+		</MainLayout>
 	);
 };
 

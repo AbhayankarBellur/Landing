@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import warmpawzLogo from "@/assets/warmpawz logo (1).svg";
+import { ROUTES, COLORS, SCROLL } from "@/config/constants";
 
 const Navbar = () => {
 	const navigate = useNavigate();
@@ -32,11 +33,11 @@ const Navbar = () => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
 
-			if (currentScrollY < 50) {
+			if (currentScrollY < SCROLL.navbarShowThreshold) {
 				// Always show at top with larger threshold
 				setIsVisible(true);
-			} else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-				// Scrolling down - hide navbar (only after scrolling past 100px)
+			} else if (currentScrollY > lastScrollY && currentScrollY > SCROLL.navbarHideThreshold) {
+				// Scrolling down - hide navbar (only after scrolling past threshold)
 				setIsVisible(false);
 			} else if (currentScrollY < lastScrollY) {
 				// Scrolling up - show navbar

@@ -5,7 +5,8 @@ import {
 	OnboardingSteps,
 	VendorFAQSection,
 } from "@/components/vendor-onboarding";
-import { BackButton, Navbar, Footer } from "@/components/shared";
+import { BackButton } from "@/components/shared";
+import { MainLayout, PageLayout } from "@/layouts";
 
 const VendorOnboardingPage = () => {
 	useEffect(() => {
@@ -39,27 +40,14 @@ const VendorOnboardingPage = () => {
 	}, []);
 
 	return (
-		<>
-			<Navbar />
-			<main
-				className="min-h-screen font-baloo"
-				style={{
-					background:
-						"linear-gradient(180deg, #FFD4A8 0%, #FFCA99 42%, #FFE8D6 100%)",
-					backgroundRepeat: "no-repeat",
-					backgroundAttachment: "fixed",
-					transition: "background 0.3s ease-in-out",
-				}}
-			>
-				<div className="pt-32">
-					<BackButton className="bg-gray-100 border-gray-300 hover:bg-gray-200 text-black ml-4" />
-					<ContentSection />
-					<OnboardingSteps />
-					<VendorFAQSection />
-				</div>
-			</main>
-			<Footer />
-		</>
+		<MainLayout>
+			<PageLayout gradient="warm" className="font-baloo">
+				<BackButton className="bg-gray-100 border-gray-300 hover:bg-gray-200 text-black ml-4" />
+				<ContentSection />
+				<OnboardingSteps />
+				<VendorFAQSection />
+			</PageLayout>
+		</MainLayout>
 	);
 };
 

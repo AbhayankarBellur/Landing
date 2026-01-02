@@ -1,13 +1,54 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import loadingVideo from "@/assets/loading.mov";
+import { BREAKPOINTS, ANIMATIONS, VIDEOS } from "@/config/constants";
 
 interface LoadingScreenProps {
   onComplete: () => void;
 }
 
+interface VideoSize {
+  width: string;
+  height: string;
+  scale: number;
+}
+
+// Dynamic function to calculate video dimensions that fill viewport without black bars
+const calculateVideoSize = (isMobile: boolean): VideoSize => {
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const viewportRatio = viewportWidth / viewportHeight;
+  
+  // Video aspect ratios (approximate)
+  const videoRatio = isMobile ? 9 / 16 : 16 / 9;
+  
+  let scale = 1;
+  let width = '100vw';
+  let height = '100vh';
+  
+  // Calculate scale to ensure video fills entire viewport
+  if (viewportRatio > videoRatio) {
+    // Viewport is wider than video - scale to width and add extra height
+    scale = 1.15;
+    height = '120vh';
+  } else {
+    // Viewport is taller than video - scale to height and add extra width
+    scale = 1.15;
+    width = '120vw';
+  }
+  
+  // Add extra scale for mobile devices to account for browser chrome
+  if (isMobile) {
+    scale += 0.1;
+  }
+  
+  return { width, height, scale };
+};
+
 const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   const [videoOpacity, setVideoOpacity] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
+  const [videoSize, setVideoSize] = useState<VideoSize>({ width: '100vw', height: '100vh', scale: 1.15 });
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     // Lock scroll when loading screen is active
@@ -22,22 +63,30 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
       const userAgent = navigator.userAgent.toLowerCase();
       const mobileKeywords = ['mobile', 'android', 'iphone', 'ipad', 'ipod', 'blackberry', 'windows phone'];
       const isMobileUserAgent = mobileKeywords.some(keyword => userAgent.includes(keyword));
-      const isMobileScreen = window.innerWidth <= 768;
+      const isMobileScreen = window.innerWidth <= BREAKPOINTS.mobile;
       
       return isMobileUserAgent || isMobileScreen;
     };
 
-    setIsMobile(checkMobile());
+    const updateVideoSize = () => {
+      const mobile = checkMobile();
+      setIsMobile(mobile);
+      setVideoSize(calculateVideoSize(mobile));
+    };
+
+    updateVideoSize();
 
     // Listen for resize events to handle orientation changes
     const handleResize = () => {
-      setIsMobile(checkMobile());
+      updateVideoSize();
     };
 
     window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
     
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
       // Unlock scroll when component unmounts
       document.body.style.overflow = '';
       document.body.style.position = '';
@@ -54,11 +103,11 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
     // After video dissolve completes, call onComplete
     setTimeout(() => {
       onComplete();
-    }, 300); // Much faster dissolve duration
+    }, ANIMATIONS.loadingDissolution);
   };
 
   // Choose video source based on device type
-  const videoSource = isMobile ? "/videos/loading phone.mov" : loadingVideo;
+  const videoSource = isMobile ? VIDEOS.loading.mobile : VIDEOS.loading.desktop;
 
   return (
     <div 
@@ -69,7 +118,6 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
         right: 0,
         bottom: 0,
         width: '100vw', 
-        height: '100vh',
         height: '100dvh',
         overflow: 'hidden',
         margin: 0,
@@ -77,6 +125,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
       }}
     >
       <video
+        ref={videoRef}
         key={videoSource}
         autoPlay
         muted
@@ -89,15 +138,13 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
           position: 'absolute',
           top: '50%',
           left: '50%',
-          width: '100vw',
-          height: '100vh',
-          height: '100dvh',
+          width: videoSize.width,
+          height: videoSize.height,
           minWidth: '100vw',
-          minHeight: '100vh',
           minHeight: '100dvh',
           objectFit: 'cover',
           objectPosition: 'center center',
-          transform: isMobile ? 'translate(-50%, -50%) scale(1.05)' : 'translate(-50%, -50%) scale(1.02)',
+          transform: `translate(-50%, -50%) scale(${videoSize.scale})`,
           margin: 0,
           padding: 0,
           display: 'block'

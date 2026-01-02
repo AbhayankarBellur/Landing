@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { Navbar, Footer } from "@/components/shared";
+import { MainLayout, PageLayout } from "@/layouts";
 
 const NotFoundPage = () => {
   const location = useLocation();
@@ -10,9 +10,8 @@ const NotFoundPage = () => {
   }, [location.pathname]);
 
   return (
-    <>
-      <Navbar />
-      <div className="flex min-h-screen items-center justify-center bg-muted">
+    <MainLayout>
+      <PageLayout gradient="white" className="flex items-center justify-center">
         <div className="text-center">
           <h1 className="mb-4 text-4xl font-bold">404</h1>
           <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
@@ -20,9 +19,8 @@ const NotFoundPage = () => {
             Return to Home
           </a>
         </div>
-      </div>
-      <Footer />
-    </>
+      </PageLayout>
+    </MainLayout>
   );
 };
 
