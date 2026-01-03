@@ -20,7 +20,7 @@ const faqData: FAQItem[] = [
   },
   {
     question: "Can I register to provide more than one service?",
-    answer: "Yes. Warmpawz recognizes that there could be more than services offered by the same provider. With Transparent Onboarding rules, Warmpawz allows service providers to register multiple businesses and start offering their services quickly to the community."
+    answer: "Yes. Warmpawz recognizes that there could be more than one services offered by the same provider. With Transparent Onboarding rules, Warmpawz allows service providers to register multiple businesses and start offering their services quickly to the community."
   },
   {
     question: "What types of pet service providers can join Warmpawz?",

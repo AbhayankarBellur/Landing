@@ -68,9 +68,9 @@ const Values = () => {
 					</div>
 
 					{/* Warmth value centered at bottom */}
-					<div className="mt-8 text-center">
+					<div className="mt-8 text-center md:text-center">
 						<div 
-							className="rounded-2xl p-8 border-2 border-gray-200 inline-block hover:border-[#F5A855] hover:shadow-md transition-all duration-300"
+							className="rounded-2xl p-8 border-2 border-gray-200 inline-block hover:border-[#F5A855] hover:shadow-md transition-all duration-300 text-left md:text-center"
 							style={{
 								background: "linear-gradient(180deg, #F69052 0%, #FAD3B5 60%, #FFF2E6 100%)",
 							}}

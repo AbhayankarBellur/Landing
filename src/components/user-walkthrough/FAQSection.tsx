@@ -7,20 +7,20 @@ interface FAQItem {
 
 const faqData: FAQItem[] = [
   {
-    question: "What is Warmpawz and how does it help pet parents?",
-    answer: "Warmpawz is a trusted pet care platform that helps pet parents discover verified services, learn from shared experiences, and make informed decisions. It brings together care providers and community knowledge to support pets through every stage of life."
+    question: "Can I find pet services near me on Warmpawz?",
+    answer: "Yes. Warmpawz helps pet parents discover local pet care services — including veterinary care, grooming, boarding, walking, and training — based on their location and their pet's specific needs. Warmpawz endeavors to be Hyperlocal in all its services."
   },
   {
     question: "How does Warmpawz ensure pet care services are trustworthy?",
     answer: "Warmpawz focuses on transparency and verification by encouraging clear provider information, shared standards, and community feedback. This helps pet parents understand what to expect and choose services with greater confidence. Warmpawz also encourages and onboards community referred service providers that ensures that most service providers on the platform have delivered satisfactory at least and superlative at best experience historically."
   },
   {
-    question: "Can I find pet services near me on Warmpawz?",
-    answer: "Yes. Warmpawz helps pet parents discover local pet care services — including veterinary care, grooming, boarding, walking, and training — based on their location and their pet's specific needs. Warmpawz endeavors to be Hyperlocal in all its services."
-  },
-  {
     question: "Is Warmpawz suitable for first-time pet parents?",
     answer: "Absolutely! Warmpawz is designed to support both new and experienced pet parents by providing guidance, shared learning, and access to trusted pet care services, making it easier to navigate unfamiliar decisions."
+  },
+  {
+    question: "What is Warmpawz and how does it help pet parents?",
+    answer: "Warmpawz is a trusted pet care platform that helps pet parents discover verified services, learn from shared experiences, and make informed decisions. It brings together care providers and community knowledge to support pets through every stage of life."
   },
   {
     question: "Can pet parents contribute to the Warmpawz community?",

@@ -48,24 +48,20 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
       if (isStep3 && video.duration) {
         videoDuration = video.duration - 2; // Cut off last 2 seconds for step 3
       }
-      video.play().catch(console.error);
+      video.play().catch(() => {});
     };
 
     const handleTimeUpdate = () => {
       // For step 3, loop before the last second
       if (isStep3 && videoDuration > 0 && video.currentTime >= videoDuration) {
         video.currentTime = 0;
-        video.play().catch(console.error);
+        video.play().catch(() => {});
       }
     };
 
     const handleVideoEnd = () => {
       video.currentTime = 0;
-      video.play().catch(console.error);
-    };
-
-    const handleVideoPause = () => {
-      video.play().catch(console.error);
+      video.play().catch(() => {});
     };
 
     const handleVideoError = () => {
@@ -78,13 +74,12 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
     video.addEventListener('canplay', handleVideoLoad);
     video.addEventListener('timeupdate', handleTimeUpdate);
     video.addEventListener('ended', handleVideoEnd);
-    video.addEventListener('pause', handleVideoPause);
     video.addEventListener('error', handleVideoError);
 
     // Use Page Visibility API to resume playback when page becomes visible
     const handleVisibilityChange = () => {
       if (!document.hidden && video.paused) {
-        video.play().catch(console.error);
+        video.play().catch(() => {});
       }
     };
 
@@ -92,7 +87,7 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
 
     // Initial play attempt
     if (video.readyState >= 2) {
-      video.play().catch(console.error);
+      video.play().catch(() => {});
     }
 
     return () => {
@@ -101,7 +96,6 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
       video.removeEventListener('canplay', handleVideoLoad);
       video.removeEventListener('timeupdate', handleTimeUpdate);
       video.removeEventListener('ended', handleVideoEnd);
-      video.removeEventListener('pause', handleVideoPause);
       video.removeEventListener('error', handleVideoError);
     };
   }, [videoSrc, stepNumber]);
@@ -123,16 +117,13 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             controls={false}
             controlsList="nodownload nofullscreen noremoteplayback"
             disablePictureInPicture
             disableRemotePlayback
-            webkit-playsinline="true"
-            x5-playsinline="true"
-            x5-video-player-type="h5"
-            x5-video-player-fullscreen="false"
             className="w-full h-full object-cover video-no-controls bg-transparent"
+            style={{ pointerEvents: 'none' }}
             onContextMenu={(e) => e.preventDefault()}
             onDoubleClick={(e) => e.preventDefault()}
           />
