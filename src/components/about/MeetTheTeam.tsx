@@ -1,34 +1,76 @@
 import { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
+import { AnimatePresence, motion } from "framer-motion";
 
 const MeetTheTeam = () => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [isAnimating, setIsAnimating] = useState(false);
-	const mockupLayerRef = useRef<HTMLDivElement>(null);
+	const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 	const mockupRefs = useRef<(HTMLDivElement | null)[]>([]);
-	const floatAnimationRef = useRef<gsap.core.Tween | null>(null);
 
 	const teamMembers = [
 		{
 			name: "Vikram Bellur",
-			role: "Founder & CEO",
+			role: "Leader of the Pack • Chief Executive Officer",
 			avatar: "VB",
 			description:
-				"Passionate about creating meaningful connections between pets and their families. 8+ years in marketplace development and community building.",
+				"Part strategist, part storyteller, and full-time believer in building things with heart. Vikram founded Warmpawz to reimagine pet care as something warmer, more human, and deeply responsible — bringing together pet parents and care providers into one trusted ecosystem. When he's not shaping the vision, he's usually thinking about how technology, empathy, and good design can make life better for pets and the people who love them. Vikram Bellur is an experienced business leader with a strong track record over 28 years driving growth and strategic impact across global technology and digital services.",
 		},
 		{
 			name: "Ketan Hirani",
-			role: "Head of Veterinary Relations",
+			role: "Architect of the Pack • Chief Product Officer",
 			avatar: "KH",
 			description:
-				"Licensed veterinarian with 12+ years of clinical experience. Dedicated to improving access to quality pet healthcare across communities.",
+				"Ketan Hirani is the architect behind the Warmpawz platform — shaping the technology that thoughtfully connects pet parents with trusted care providers. With a strong product and engineering mindset developed over 20 years, he leads the design and development of systems that prioritise reliability, ease of use, and real-world empathy. At Warmpawz, Ketan translates complex needs into simple, human-centred experiences — ensuring that every interaction between a pet parent and a provider feels seamless, secure, and intuitive. A leader who relies on his Animal Instincts (AI) to build robust scalable systems.",
 		},
 		{
-			name: "Niranjan Delavictioreke",
-			role: "Product Lead",
+			name: "Niranjan Delavictoire",
+			role: "Voice of the Pack • Chief Marketing Officer",
 			avatar: "ND",
 			description:
-				"Former pet parent turned product strategist. Specializes in user experience design and building trust through transparent technology.",
+				"Niranjan Delavictoire is a seasoned marketing and business leader with over 30 years of deep experience in shaping strategic brand narratives and driving growth across technology and services sectors. He has led direct and indirect sales, major accounts, business development and integrated marketing initiatives throughout his career at AWS, Esko, Hewlett Packard, Intel to name a few. A passionate communicator with a knack for building meaningful connections, Niranjan brings this same spirit to Warmpawz — where every pet story and every service deserves thoughtful expression and trust. Outside his professional life, he's also been a devoted pet parent to a golden retriever, bringing first-hand insight into the joys and responsibilities of pet care.",
+		},
+		{
+			name: "Sidharth Rozario",
+			role: "Guardian of the Pack • The Angel",
+			avatar: "SR",
+			description:
+				"A trusted guide behind Warmpawz, Sidharth brings strategic perspective, industry experience, and a pet parent's heart to the journey. As an angel investor, he supports the platform's vision of building a thoughtful, dependable ecosystem where pet parents and care providers connect with confidence and care.",
+		},
+		{
+			name: "Khushee Singhal",
+			role: "Shaper of the Journey • UI/UX Developer",
+			avatar: "KS",
+			description:
+				"The one obsessed with how everything feels. Khushee designs the Warmpawz experience so pet parents move through the platform with ease, clarity, and a little delight along the way. A pet parent herself, she brings empathy into every screen, flow, and interaction — making sure good design always puts paws first.",
+		},
+		{
+			name: "Shivang Tiwari",
+			role: "Crafter of the Code • Software Engineer",
+			avatar: "ST",
+			description:
+				"Turning ideas into reliable, working reality. Shivang writes the code that powers Warmpawz behind the scenes — building systems that are clean, dependable, and built to scale. If something just works the way it should, chances are Shivang had a hand in it.",
+		},
+		{
+			name: "Kartikay Singh",
+			role: "Builder at the Front • Platform Engineering Intern",
+			avatar: "KS",
+			description:
+				"Focused on what users see, click, and experience. Kartikay works on the front-end code that brings designs to life — making sure the platform looks good, feels smooth, and behaves exactly as intended across screens and devices.",
+		},
+		{
+			name: "Abhayankar",
+			role: "Logic Tamer • Platform Engineering Intern",
+			avatar: "AB",
+			description:
+				"The one making sure everything adds up. Abhayankar builds and tests the business logic that keeps the platform honest and reliable — quietly ensuring that what happens behind the scenes is just as thoughtful as what users experience up front.",
+		},
+		{
+			name: "Shreesha",
+			role: "Guardian of Quality • Software Engineer",
+			avatar: "SH",
+			description:
+				"The final line of defence (and the calm voice of reason). Shreesha tests the code, finds the cracks, and helps smooth the rough edges — making sure Warmpawz is stable, trustworthy, and ready for the real world before it ever reaches pet parents.",
 		},
 	];
 
@@ -59,23 +101,7 @@ const MeetTheTeam = () => {
 				});
 			}
 		});
-
-		// No floating animation - removed
-
-		return () => {
-			if (floatAnimationRef.current) {
-				floatAnimationRef.current.kill();
-			}
-		};
-	}, []);
-
-	// Floating idle animation for active mockup - REMOVED
-	const startFloatAnimation = (index: number) => {
-		// No floating animation
-		if (floatAnimationRef.current) {
-			floatAnimationRef.current.kill();
-		}
-	};
+	}, [currentIndex]);
 
 	// Depth-swap phone mockup carousel with behind-frame replacement animation
 	const transitionToIndex = (nextIndex: number, forceDirection?: 'next' | 'prev') => {
@@ -83,11 +109,7 @@ const MeetTheTeam = () => {
 		if (nextIndex < 0 || nextIndex >= teamMembers.length) return;
 
 		setIsAnimating(true);
-
-		// Kill floating animation during transition (no-op now)
-		if (floatAnimationRef.current) {
-			floatAnimationRef.current.kill();
-		}
+		setExpandedIndex(null);
 
 		const currentMockup = mockupRefs.current[currentIndex];
 		const nextMockup = mockupRefs.current[nextIndex];
@@ -100,7 +122,6 @@ const MeetTheTeam = () => {
 			onComplete: () => {
 				setCurrentIndex(nextIndex);
 				setIsAnimating(false);
-				// No floating animation restart
 			},
 		});
 
@@ -173,14 +194,13 @@ const MeetTheTeam = () => {
 					</h2>
 					<div className="w-24 h-1 bg-[#F5A855] mx-auto rounded-full mb-6"></div>
 					<p className="text-xl text-gray-600 max-w-3xl mx-auto">
-						The passionate people behind Warmpawz, united by our love for pets
-						and commitment to their wellbeing.
-					</p>
-				</div>
+					Together, they're building Warmpawz the way a pack should — with trust, warmth, and a whole lot of heart!
+				</p>
+			</div>
 
-				{/* Depth-Swap Phone Mockup Carousel */}
-				<div className="flex flex-col items-center">
-					{/* Mockup Stage with External Navigation */}
+			{/* Depth-Swap Phone Mockup Carousel */}
+			<div className="flex flex-col items-center">
+				{/* Mockup Stage with External Navigation */}
 					<div className="flex items-center gap-4 sm:gap-6 md:gap-8">
 						{/* Left Arrow - External */}
 						<button
@@ -220,7 +240,6 @@ const MeetTheTeam = () => {
 
 									{/* Mockup Layer (All mockups rendered at once) */}
 									<div
-										ref={mockupLayerRef}
 										className="absolute inset-0"
 										style={{
 											transformStyle: "preserve-3d",
@@ -236,26 +255,90 @@ const MeetTheTeam = () => {
 													transformStyle: "preserve-3d",
 												}}
 											>
-												{/* Avatar */}
-												<div className="w-20 sm:w-24 md:w-28 h-20 sm:h-24 md:h-28 rounded-full bg-[#F5A855] flex items-center justify-center text-white font-bold text-2xl sm:text-3xl md:text-4xl mb-4 sm:mb-6 shadow-lg">
-													{member.avatar}
-												</div>
+												{/* Default View: Avatar, Name, Role, Read More */}
+												{expandedIndex !== index && (
+													<div className="flex flex-col items-center justify-center h-full">
+														{/* Avatar */}
+														<div className="w-20 sm:w-24 md:w-28 h-20 sm:h-24 md:h-28 rounded-full bg-[#F5A855] flex items-center justify-center text-white font-bold text-2xl sm:text-3xl md:text-4xl mb-4 sm:mb-6 shadow-lg">
+															{member.avatar}
+														</div>
 
-												{/* Name and Role */}
-												<h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-1 sm:mb-2 text-center px-2">
-													{member.name}
-												</h3>
-												<p className="text-[#F5A855] font-semibold text-sm sm:text-base md:text-lg mb-4 sm:mb-6 text-center px-2">
-													{member.role}
-												</p>
+														{/* Name and Role - Centered */}
+														<h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-1 sm:mb-2 text-center px-2">
+															{member.name}
+														</h3>
+														<p className="text-[#F5A855] font-semibold text-sm sm:text-base md:text-lg mb-6 text-center px-2">
+															{member.role}
+														</p>
 
-												{/* Description */}
-												<p className="text-gray-600 text-center leading-relaxed text-xs sm:text-sm md:text-base px-2 sm:px-4">
-													{member.description}
-												</p>
+														{/* Read More Button - Left aligned below designation */}
+														<button
+															onClick={() => setExpandedIndex(index)}
+															className="text-[#F5A855] text-sm font-semibold hover:text-[#E09642] transition-colors flex items-center gap-1"
+														>
+															Read More
+															<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+																<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+															</svg>
+														</button>
+													</div>
+												)}
 											</div>
 										))}
 									</div>
+
+									{/* Full Screen Overlay for Expanded Content */}
+									<AnimatePresence>
+										{expandedIndex !== null && (
+											<motion.div
+												initial={{ opacity: 0 }}
+												animate={{ opacity: 1 }}
+												exit={{ opacity: 0 }}
+												transition={{ duration: 0.4, ease: "easeInOut" }}
+												className="absolute inset-0 bg-white z-30 flex flex-col p-6 sm:p-8"
+											>
+												{/* View Less Arrow - Top Left */}
+												<button
+													onClick={() => setExpandedIndex(null)}
+													className="absolute top-4 left-4 text-[#F5A855] hover:text-[#E09642] transition-colors"
+													aria-label="Close details"
+												>
+													<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+														<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+													</svg>
+												</button>
+
+												{/* Scrollable Content */}
+												<motion.div
+													initial={{ opacity: 0, y: 10 }}
+													animate={{ opacity: 1, y: 0 }}
+													exit={{ opacity: 0, y: 10 }}
+													transition={{ duration: 0.3, delay: 0.1 }}
+													className="flex-1 overflow-y-auto scrollbar-hide pt-8"
+												>
+													{/* Avatar */}
+													<div className="w-16 sm:w-20 h-16 sm:h-20 rounded-full bg-[#F5A855] flex items-center justify-center text-white font-bold text-xl sm:text-2xl mb-3 shadow-lg mx-auto">
+														{teamMembers[expandedIndex].avatar}
+													</div>
+
+													{/* Name */}
+													<h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1 text-center">
+														{teamMembers[expandedIndex].name}
+													</h3>
+
+													{/* Role */}
+													<p className="text-[#F5A855] font-semibold text-xs sm:text-sm mb-4 text-center">
+														{teamMembers[expandedIndex].role}
+													</p>
+
+													{/* Description */}
+													<p className="text-gray-700 text-left leading-relaxed text-xs sm:text-sm px-2">
+														{teamMembers[expandedIndex].description}
+													</p>
+												</motion.div>
+											</motion.div>
+										)}
+									</AnimatePresence>
 								</div>
 							</div>
 

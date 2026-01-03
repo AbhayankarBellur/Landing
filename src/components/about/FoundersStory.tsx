@@ -7,7 +7,7 @@ const FoundersStory = () => {
 		<section
 			id="story"
 			ref={sectionRef}
-			className="pt-32 pb-16 px-4 sm:px-6 lg:px-8"
+			className="pt-16 pb-16 px-4 sm:px-6 lg:px-8"
 		>
 			<div className="max-w-4xl mx-auto">
 				<div className="text-center mb-16">
@@ -47,7 +47,7 @@ const FoundersStory = () => {
 					</div>
 				</div>
 
-				<div className="mt-16 p-8 md:p-12 bg-white rounded-2xl border-2 border-[#F5A855] text-center">
+			<div className="mt-32 p-8 md:p-12 bg-white rounded-2xl border-2 border-[#F5A855] text-center">
 					<h3 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
 						Why Warmpawz Exists
 					</h3>

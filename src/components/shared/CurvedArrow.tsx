@@ -15,6 +15,7 @@ const CurvedArrow: FC<CurvedArrowProps> = ({ direction, className = "" }) => {
       alt=""
       aria-hidden="true"
       className={`w-16 h-24 sm:w-20 sm:h-28 md:w-24 md:h-32 object-contain ${className}`}
+      loading="eager"
     />
   );
 };

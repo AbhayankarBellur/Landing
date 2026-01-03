@@ -181,6 +181,7 @@ const ServicesPhoneFrame = () => {
 											src={selectedService.image}
 											alt={selectedService.name}
 											className="w-24 h-24 object-contain"
+											loading="eager"
 										/>
 									</div>
 

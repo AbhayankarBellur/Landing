@@ -18,7 +18,7 @@ const BrandSection = () => {
 				aria-label="Navigate to home page"
 			>
 				<div className="relative inline-block">
-					<img src={warmpawzLogo} alt="Warmpawz" className="h-16 w-auto" />
+				<img src={warmpawzLogo} alt="Warmpawz" className="h-16 w-auto" loading="eager" />
 					<span className="absolute -top-1 -right-3 text-[10px] font-bold">TM</span>
 				</div>
 			</button>

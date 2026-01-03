@@ -146,14 +146,6 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 			const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 			const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-			// Debug: Check if env vars are loaded
-			console.log("ENV CHECK:", {
-				serviceId,
-				templateId,
-				publicKey,
-				allEnv: import.meta.env,
-			});
-
 			// Validate env vars are present
 			if (!serviceId || !templateId || !publicKey) {
 				throw new Error(
@@ -176,8 +168,6 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 				to_email: "vikrambellurv@gmail.com",
 			};
 
-			console.log("Sending email with params:", templateParams);
-
 			// Send email using EmailJS
 			const result = await emailjs.send(
 				serviceId,
@@ -185,8 +175,6 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 				templateParams,
 				publicKey
 			);
-
-			console.log("EmailJS Result:", result);
 
 			if (result.status === 200) {
 				setSubmitStatus({
@@ -209,10 +197,6 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 				}, 2000);
 			}
 		} catch (error: any) {
-			console.error("EmailJS Error Details:", error);
-			console.error("Error text:", error.text);
-			console.error("Error status:", error.status);
-			
 			let errorMessage = "Failed to send message. Please try again or email us directly at contact@warmpawz.com";
 			
 			if (error.text) {

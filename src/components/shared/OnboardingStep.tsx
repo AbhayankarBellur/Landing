@@ -26,7 +26,7 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
           setIsVisible(true);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1, rootMargin: '150px' }
     );
 
     if (stepRef.current) {
@@ -109,7 +109,7 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
       style={{ transitionDelay: "0.1s" }}
     >
       {videoSrc && (
-        <div className="relative w-[220px] h-[450px] sm:w-[280px] sm:h-[570px] rounded-[48px] overflow-hidden">
+        <div className="relative w-[220px] h-[450px] sm:w-[280px] sm:h-[570px] rounded-[48px] overflow-hidden" style={{ willChange: 'transform, opacity' }}>
           <video
             ref={videoRef}
             src={videoSrc}
@@ -117,7 +117,7 @@ const OnboardingStep: FC<OnboardingStepProps> = ({
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
             controls={false}
             controlsList="nodownload nofullscreen noremoteplayback"
             disablePictureInPicture

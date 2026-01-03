@@ -100,6 +100,7 @@ const Navbar = () => {
 							<img
 								src={warmpawzLogo}
 								alt="Warmpawz"
+								loading="eager"
 								className="h-16 w-auto"
 							/>
 							<span className="absolute -top-1 -right-3 text-[10px] font-bold">

@@ -27,6 +27,7 @@ const MobileSection = forwardRef<HTMLDivElement, MobileSectionProps>(
 						alt=""
 						className="w-full h-full object-contain object-bottom"
 						aria-hidden="true"
+						loading="eager"
 					/>
 				</div>
 				{/* Button */}

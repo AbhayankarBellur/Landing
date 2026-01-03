@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import { CardStack } from "@/components/ui/card-stack";
 
 const Values = () => {
 	const sectionRef = useRef<HTMLElement>(null);
@@ -8,27 +9,61 @@ const Values = () => {
 			title: "Compassion",
 			description:
 				"We place the wellbeing of pets at the heart of every decision we make.",
-			icon: "❤️",
+			icon: "/images/Compassion .png",
 		},
 		{
 			title: "Trust",
 			description:
 				"We build confidence through verified partners, transparent choices, and accountable care.",
-			icon: "🤝",
+			icon: "/images/Trust.png",
 		},
 		{
 			title: "Convenience",
 			description:
 				"We simplify pet care by bringing trusted services together in one connected experience.",
-			icon: "⚡",
+			icon: "/images/Convenience .png",
 		},
 		{
 			title: "Community",
 			description:
 				"We grow stronger by supporting a shared ecosystem of pet parents and care professionals.",
-			icon: "🌟",
+			icon: "/images/Community.png",
+		},
+		{
+			title: "Warmth",
+			description:
+				"We lead with empathy, care, and a human touch in every interaction.",
+			icon: "/images/Warmth.png",
 		},
 	];
+
+	// Preload all value icons immediately on mount
+	useEffect(() => {
+		values.forEach((value) => {
+			const img = new Image();
+			img.src = value.icon;
+		});
+	}, []);
+
+	// Card stack items for both mobile and desktop
+	const cardStackItems = values.map((value, index) => ({
+		id: index,
+		name: "",
+		designation: "",
+		content: (
+			<div className="text-center h-full flex flex-col items-center justify-center px-4">
+				<div className="mb-4 lg:mb-4">
+					<img src={value.icon} alt={value.title} className="w-40 h-40 md:w-36 md:h-36 lg:w-56 lg:h-56 mx-auto" loading="eager" />
+				</div>
+				<h3 className="text-3xl md:text-2xl lg:text-2xl font-bold text-gray-900 mb-3 lg:mb-3">
+					{value.title}
+				</h3>
+				<p className="text-xl md:text-lg lg:text-base text-gray-700 leading-relaxed font-medium">
+					{value.description}
+				</p>
+			</div>
+		),
+	}));
 
 	return (
 		<section
@@ -37,52 +72,19 @@ const Values = () => {
 			className="py-16 px-4 sm:px-6 lg:px-8"
 		>
 			<div className="max-w-6xl mx-auto">
-				<div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg border-2 border-[#F5A855]">
-					{/* Header inside the box */}
-					<div className="text-center mb-12">
-						<h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-							Our Values
-						</h2>
-						<div className="w-24 h-1 bg-[#F5A855] mx-auto rounded-full"></div>
-					</div>
+				{/* Header outside the card stack */}
+				<div className="text-center mb-12">
+					<h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+						Our Values
+					</h2>
+					<div className="w-24 h-1 bg-[#F5A855] mx-auto rounded-full"></div>
+				</div>
 
-					{/* Values grid */}
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-						{values.map((value, index) => (
-							<div
-								key={index}
-								className="group rounded-2xl p-8 border-2 border-gray-200 hover:border-[#F5A855] hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-out"
-								style={{
-									background: "linear-gradient(180deg, #F69052 0%, #FAD3B5 60%, #FFF2E6 100%)",
-								}}
-							>
-								<div className="text-4xl mb-4">{value.icon}</div>
-								<h3 className="text-2xl font-bold text-gray-900 mb-4">
-									{value.title}
-								</h3>
-								<p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium">
-									{value.description}
-								</p>
-							</div>
-						))}
-					</div>
-
-					{/* Warmth value centered at bottom */}
-					<div className="mt-8 text-center md:text-center">
-						<div 
-							className="rounded-2xl p-8 border-2 border-gray-200 inline-block hover:border-[#F5A855] hover:shadow-md transition-all duration-300 text-left md:text-center"
-							style={{
-								background: "linear-gradient(180deg, #F69052 0%, #FAD3B5 60%, #FFF2E6 100%)",
-							}}
-						>
-							<div className="text-4xl mb-4">🤗</div>
-							<h3 className="text-2xl font-bold text-gray-900 mb-4">Warmth</h3>
-							<p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium max-w-2xl">
-								We lead with empathy, care, and a human touch in every
-								interaction.
-							</p>
-						</div>
-					</div>
+				{/* Card Stack for all screen sizes */}
+				<div className="flex items-center justify-center px-4">
+				<div className="w-full max-w-xl">
+					<CardStack items={cardStackItems} offset={10} scaleFactor={0.06} />
+				</div>
 				</div>
 			</div>
 		</section>

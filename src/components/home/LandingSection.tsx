@@ -42,8 +42,10 @@ const LandingSection = forwardRef<HTMLDivElement, LandingSectionProps>(
 					<img
 						src={image}
 						alt=""
+						loading="eager"
 						className="w-full h-full object-contain object-bottom"
 						aria-hidden="true"
+						style={{ willChange: 'transform' }}
 					/>
 				</div>
 				{/* Button */}
@@ -53,7 +55,7 @@ const LandingSection = forwardRef<HTMLDivElement, LandingSectionProps>(
 						e.stopPropagation();
 						onNavigate(navigateTo);
 					}}
-					className="px-12 py-6 xl:px-14 xl:py-7 2xl:px-16 2xl:py-8 bg-[#f69052] text-black rounded-full text-xl xl:text-2xl 2xl:text-3xl font-bold font-display shadow-lg whitespace-nowrap hover:bg-[#E09642] transition-colors"
+					className="px-12 py-6 xl:px-14 xl:py-7 2xl:px-16 2xl:py-8 bg-[#f69052] text-black rounded-full text-xl xl:text-2xl 2xl:text-3xl font-bold font-display shadow-lg whitespace-nowrap transition-colors"
 				>
 					{title}
 				</button>

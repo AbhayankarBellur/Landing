@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { CardStack } from '@/components/ui/card-stack';
 
 const HeroSection = () => {
   const [activeCard, setActiveCard] = useState(0);
@@ -15,6 +16,19 @@ const HeroSection = () => {
       content: "More than access, Warmpawz encourages participation. Pet parents can learn from others, share insights, and contribute to a growing community that values responsibility, compassion, and informed decision-making. Whether it's everyday care or moments of uncertainty, Warmpawz supports pet parents not just as consumers of services, but as active members of a connected pet care ecosystem built on trust."
     }
   ];
+
+  // Card stack items for mobile view
+  const cardStackItems = cards.map((card, index) => ({
+    id: index,
+    name: "",
+    designation: "",
+    content: (
+      <div className="text-left h-full">
+        <h3 className="text-xl font-bold text-gray-900 mb-4">{card.title}</h3>
+        <p className="text-base text-gray-700 leading-relaxed">{card.content}</p>
+      </div>
+    ),
+  }));
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -68,42 +82,9 @@ const HeroSection = () => {
 
       {/* Main Content with Orange Border */}
       <div className="max-w-5xl mx-auto mb-6 sm:mb-12 w-full">
-        {/* Mobile: Swipeable card with fixed height */}
-        <div 
-          className="lg:hidden border-2 border-[#F5A855] rounded-2xl bg-white/50 backdrop-blur-sm shadow-sm p-6 relative"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-        >
-          {/* Card content with fixed height and fade transition */}
-          <div className="relative h-[340px] overflow-y-auto scrollbar-hide">
-            {cards.map((card, index) => (
-              <div
-                key={index}
-                className={`text-left transition-opacity duration-300 ${
-                  activeCard === index ? 'opacity-100' : 'opacity-0 absolute inset-0 pointer-events-none'
-                }`}
-              >
-                <h3 className="text-xl font-bold text-foreground mb-4">{card.title}</h3>
-                <p className="text-base text-foreground leading-relaxed pr-2">{card.content}</p>
-              </div>
-            ))}
-          </div>
-          
-          {/* Indicators only */}
-          <div className="flex justify-center gap-2 mt-4">
-            {cards.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveCard(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  activeCard === index ? 'bg-[#F5A855] w-6' : 'bg-muted-foreground/30'
-                }`}
-                aria-label={`Go to card ${index + 1}`}
-              />
-            ))}
-          </div>
+        {/* Mobile: Card Stack with auto-rotation */}
+        <div className="lg:hidden flex items-center justify-center px-4">
+          <CardStack items={cardStackItems} offset={10} scaleFactor={0.06} />
         </div>
 
         {/* Desktop: Traditional Layout */}
